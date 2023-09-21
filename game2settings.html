@@ -5,6 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>Game 2 Settings</title>
+        <script type="text/javascript" scr="scripts.js"></script>
     </head>
     <body>
         <div class="row">
@@ -16,8 +17,18 @@
                     <h1>Copy Creation</h1>
                     
                     <div class="slidecontainer">
-                        <span><h2>Size: <input type="range" min="1" max="100" value="50" class="slider" id="myRange"> <span id="demo"></span></h2></span>
-                      </div>
+                        <h2>Size: <input type="range" min="1" max="5" value="1" class="slider" id="myRange"> <span id="demo">1</span></h2>
+                    </div>
+                    <script>
+                        var slider = document.getElementById("myRange");
+                        var output = document.getElementById("demo");
+                        output.innerHTML = slider.value;
+                        
+                        slider.oninput = function() {
+                          output.innerHTML = this.value;
+                        }
+                    </script>
+
                 </div>
             </div>
             <div class="rightcolumn">
