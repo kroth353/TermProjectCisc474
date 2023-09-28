@@ -15,19 +15,37 @@
             <div class="middlecolumn">
                 <div class="box">
                     <h1>Copy Creation</h1>
-                    
+                    <h2>Grid Size</h2>
+                    <p> 
+                        Using the slider below, please select the size of grid you would like to start with. <br>
+                        The size will become larger as the pattern continues to get larger. 
+                    </p>
                     <div class="slidecontainer">
-                        <h2>Size: <input type="range" min="1" max="5" value="1" class="slider" id="myRange"> <span id="demo">1</span></h2>
+                        <h3>Size: <input type="range" min="1" max="5" value="1" class="slider" id="myRange"> <span id="demo">1</span></h3>
                     </div>
                     <script>
                         var slider = document.getElementById("myRange");
                         var output = document.getElementById("demo");
-                        output.innerHTML = slider.value;
-                        
+                        output.innerHTML = slider.value + " x " + slider.value;
                         slider.oninput = function() {
-                          output.innerHTML = this.value;
+                          output.innerHTML = this.value + " x " + this.value;
                         }
                     </script>
+                    <h2>Level Select</h2>
+                    <p>
+                        Pick a level below. <br>
+                        Each level corresponds to the amount of time each square in the pattern will flash <br>
+                        The harder the level, the less time you will have to look at the lit up square.
+                    </p>
+                    <div class="container">
+                        <input type="radio" name="LevelSelector">
+                            <label>Easy</label>
+                        <input type="radio" name="LevelSelector">
+                            <label>Medium</label>
+                        <input type="radio" name="LevelSelector">
+                            <label>Hard</label>
+                   </div>
+
 
                 </div>
             </div>
