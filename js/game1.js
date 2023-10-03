@@ -44,7 +44,7 @@ function startGame() {
     hideStartButton();
     createCards();
     flipCard();
-    sleep(3000);
+    await new Promise(r => setTimeout(r, 2000));
     flipCard();
 }
 
