@@ -29,7 +29,6 @@ function hideStartButton() {
 function startGame() {
     console.log("game started");
     hideStartButton();
-    showAddSubtractButton();
     createCards();
 }
 
