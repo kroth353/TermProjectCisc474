@@ -16,6 +16,7 @@ function createCards() {
     let cardWidth = cardWidthNum.toString();
     console.log("card width: " + cardWidth);
     let cardHeight = cardHeightNum.toString();
+
     if(imgOption == 1) {
         let imgs = animals;
     } else if (imgOption == 2) {
@@ -27,6 +28,9 @@ function createCards() {
     for(let i = 0; i<(numCards/2); i++) {
         cardStr = imgs[i];
         htmlStr += "<div id='" + cardStr + "1' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='img/" + cardStr + ".png'><img class='back-face' src='img/card.png'></div>" + "<div id='" + cardStr + "2' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='img/" + cardStr + ".png'><img class='back-face' src='img/card.png'></div>";
+    htmlStr = '';
+    for(let i = 0; i<numCards; i++) {
+        htmlStr += "<div id='card" + i + "' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='img/herc.svg'><img class='back-face' src='img/herc.svg'></div>";
     }
     document.getElementById('memory-game').innerHTML = htmlStr;
     for(let j = 0; j<numCards; j++) {
