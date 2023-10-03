@@ -43,7 +43,7 @@ function hideStartButton() {
     console.log("start button hidden");
 }
 
-function startGame() {
+async function startGame() {
     console.log("game started");
     hideStartButton();
     createCards();
