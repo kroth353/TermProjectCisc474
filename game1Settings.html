@@ -6,7 +6,65 @@
         <title>Game 1 Settings</title>
     </head>
     <body>
-        <button>Grid Size</button>
-        <button>Card Style</button>
+        <div class="row">
+            <div class="leftcolumn">
+                <div class="clearbox"></div>
+            </div>
+            <div class="middlecolumn">
+                <div class="box">
+                    <h1>Matching</h1>
+                    <h2>Game mode</h2>  
+                    <p>
+                        Pick a game mode below. Arcade mode tests how many matches you can make<br>
+                        in SET AMOUNT OF TIME. Casual mode allows you to take your time and work <br>
+                        your way through the grid sizes. 
+                    </p>  
+                    <div class="container">
+                        <input type="radio" name="gameModeSelector">
+                            <label>Casual</label>
+                        <input type="radio" name="gameModeSelector">
+                            <label>Arcade</label>    
+                    </div>
+                    <h2>Level Select</h2>
+                    <p>
+                        Pick a level below.
+                        The level will be the number of matche in the grid.
+                    </p>
+                    <div class="container">
+                        <input type="radio" name="LevelSelector">
+                            <label>5</label>
+                        <input type="radio" name="LevelSelector">
+                            <label>10</label>
+                        <input type="radio" name="LevelSelector">
+                            <label>20</label>
+                   </div>
+                   <h2>Theme Select</h2>
+                    <p>
+                        Pick a theme below.
+                        The theme will determine what images will be displayed on the cards.
+                    </p>
+                    <div class="container">
+                        <input type="radio" name="themeSelector">
+                            <label>Animals</label>
+                        <input type="radio" name="themeSelector">
+                            <label>Numbers</label>
+                        <input type="radio" name="themeSelector">
+                            <label>Colors</label>
+                   </div>
+
+                   <h2>Directions</h2>
+                   <p>
+                        Flip over cards over by clicking on them. Remember the images on the ones you have<br>
+                        flipped so you can create a match! A match happens when you select two cards with <br>
+                        the same image on them. 
+                    </p>
+
+
+                </div>
+            </div>
+            <div class="rightcolumn">
+                <div class="clearbox"></div>
+            </div>
+        </div>
     </body>
 </html>
