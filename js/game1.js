@@ -46,9 +46,9 @@ async function startGame() {
     console.log("game started");
     hideStartButton();
     createCards();
-//    flipCard();
+    flipCard();
 //    await new Promise(r => setTimeout(r, 2000));
-//    flipCard();
+    flipCard();
 }
 
 function flipCard() {
