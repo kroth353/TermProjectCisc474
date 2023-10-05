@@ -35,6 +35,7 @@ function createCards() {
         document.getElementById(cardStr+"1").addEventListener('click', flipCard);
         document.getElementById(cardStr+"2").addEventListener('click', flipCard);
     }
+    console.log("flip listener created");
 }
 
 function hideStartButton() {
@@ -42,13 +43,22 @@ function hideStartButton() {
     console.log("start button hidden");
 }
 
-async function startGame() {
+function startGame() {
     console.log("game started");
     hideStartButton();
     createCards();
+    console.log("before first flip");
     flipCard();
-//    await new Promise(r => setTimeout(r, 2000));
+    sleep(2000);
     flipCard();
+}
+
+function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+      currentDate = Date.now();
+    } while (currentDate - date < milliseconds);
 }
 
 function flipCard() {
