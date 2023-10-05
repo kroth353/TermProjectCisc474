@@ -1,0 +1,41 @@
+/* Style for the container */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* This ensures the container takes up the full viewport height */
+    margin: 0; /* Remove default body margin */
+    background-color: #f0f0f0; /* Background color for the entire page */
+  }
+  
+  /* Style for the black box outline */
+  .black-box {
+    border: 2px solid #000; /* Black border for the outline */
+    color: #000; /* Text color for the options */
+    width: 300px; /* Adjust the width as needed */
+    padding: 20px; /* Add some padding inside the box */
+    border-radius: 10px; /* Add rounded corners to the outline */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to the box */
+    text-align: center; /* Center the text horizontally */
+  }
+  
+  /* Style for the options (buttons) */
+  .option {
+    display: block;
+    padding: 10px;
+    margin: 10px auto; /* Center the options horizontally and add space between them vertically */
+    text-decoration: none; /* Remove underlines */
+    font-weight: bold; /* Make the text bold */
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 5px; /* Rounded corners for the buttons */
+    cursor: pointer; /* Add pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Add a smooth transition on hover */
+  }
+  
+  /* Style for the options (buttons) when hovered */
+  .option:hover {
+    background-color: #0056b3; /* Hover background color */
+  }
+  
