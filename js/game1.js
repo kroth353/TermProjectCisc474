@@ -27,6 +27,7 @@ function createCards() {
     console.log(imgs);
     htmlStr = '';
     shuffleArray(imgs); 
+    var cardArray = [];
     for(let j = 0; j <(numCards/2); j++){
         cardStr = imgs[j];
         cardArray.append(cardStr+"1");
