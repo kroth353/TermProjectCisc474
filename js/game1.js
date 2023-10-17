@@ -24,14 +24,23 @@ function createCards() {
     } else {
         imgs = numbers;
     }
+    console.log(imgs);
     htmlStr = '';
-    for(let i = 0; i<(numCards/2); i++) {
-        cardStr = imgs[i];
-        htmlStr += "<div id='" + cardStr + "1' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>" + "<div id='" + cardStr + "2' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>";
+    shuffleArray(imgs); 
+    for(let j = 0; j <(numCards/2); j++){
+        cardStr = imgs[j];
+        cardArray.append(cardStr+"1");
+        cardArray.append(cardStr+"2");
+    }
+    shuffleArray(cardArray);
+    console.log(cardArray);
+    for(let i = 0; i<(numCards); i++) {
+        cardStr = cardArray[i];
+        htmlStr += "<div id='" + cardStr + "class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>" + "<div id='" + cardStr + "class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>";
     }
     document.getElementById('memory-game').innerHTML = htmlStr;
-    for(let j = 0; j<(numCards/2); j++) {
-        cardStr = imgs[j];
+    for(let j = 0; j<(numCards); j++) {
+        cardStr = cardArray[j];
         document.getElementById(cardStr+"1").addEventListener('click', flipCard);
         document.getElementById(cardStr+"2").addEventListener('click', flipCard);
     }
@@ -64,6 +73,14 @@ function sleep(milliseconds) {
 function flipCard() {
     console.log("flip: " + this.id);
     this.classList.toggle('flip');
+}
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
