@@ -26,10 +26,21 @@ function createCards() {
     }
     shuffleArray(imgs);
     htmlStr = '';
-    for(let i = 0; i<(numCards/2); i++) {
-        cardStr = imgs[i];
-        htmlStr += "<div id='" + cardStr + "1' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>" + "<div id='" + cardStr + "2' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>";
+    
+    var arrayOption= []
+    for(let i = 0; i < numCards; i++){
+        arrayOption.push(i);
+        arrayOption.push(i);
+     }
+
+     //array should be sequence of number with two of each number
+    suffleArray(arrayOption)
+
+    for(let i = 0; i<(numCards); i++) {
+        cardStr = imgs[arrayOption[i]];
+        htmlStr += "<div id='" + cardStr + "class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>";
     }
+
     document.getElementById('memory-game').innerHTML = htmlStr;
     for(let j = 0; j<(numCards/2); j++) {
         cardStr = imgs[j];
