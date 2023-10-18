@@ -24,16 +24,32 @@ function createCards() {
     } else {
         imgs = numbers;
     }
+    shuffleArray(imgs);
     htmlStr = '';
-    for(let i = 0; i<(numCards/2); i++) {
-        cardStr = imgs[i];
-        htmlStr += "<div id='" + cardStr + "1' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>" + "<div id='" + cardStr + "2' class='item-card' style='width: " + cardWidth + "px; height: " + cardHeight + "px;'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>";
+    
+    var arrayOption= []
+    for(let i = 0; i < numCards/2; i++){
+        arrayOption.push(i);
+        arrayOption.push(i);
+        //console.log(arrayOption);
+     }
+
+     //array should be sequence of number with two of each number
+    shuffleArray(arrayOption);
+    //console.log(arrayOption);
+    for(let i = 0; i<(numCards); i++) {
+        cardStr = imgs[arrayOption[i]];
+        console.log(cardStr);
+        htmlStr += "<div id='" + cardStr + "class='item-card' style='width: " + cardWidth + "px; height: " + 
+                    cardHeight + "px'";
     }
+
     document.getElementById('memory-game').innerHTML = htmlStr;
-    for(let j = 0; j<(numCards/2); j++) {
-        cardStr = imgs[j];
-        document.getElementById(cardStr+"1").addEventListener('click', flipCard);
-        document.getElementById(cardStr+"2").addEventListener('click', flipCard);
+    for(let j = 0; j<(numCards); j++) {
+        cardStr = imgs[arrayOption[j]];
+        console.log(cardStr);
+        //document.getElementById(cardStr).addEventListener('click', flipCard);
+        //document.getElementById(cardStr).addEventListener('click', flipCard);
     }
     console.log("flip listener created");
 }
@@ -48,9 +64,9 @@ function startGame() {
     hideStartButton();
     createCards();
     console.log("before first flip");
-    flipCard();
+    //flipCard();
     sleep(2000);
-    flipCard();
+    //flipCard();
 }
 
 function sleep(milliseconds) {
@@ -61,9 +77,18 @@ function sleep(milliseconds) {
     } while (currentDate - date < milliseconds);
 }
 
-function flipCard() {
-    console.log("flip: " + this.id);
+/*function flipCard() {
+    //console.log("flip: " + this.id);
     this.classList.toggle('flip');
+}*/
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
