@@ -4,9 +4,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" type="text/css" href="nav.css">
-        <title>Game 2 Settings</title>
+        <link rel="stylesheet" type="text/css" href="styles2.css">
         <script type="text/javascript" scr="js/scripts.js"></script>
+        <title>Game 2 Settings</title>
     </head>
     <body>
         <div class="row">
@@ -15,11 +15,11 @@
             </div>
             <div class="middlecolumn">
                 <div class="box">
-                    <h1>Copy Creation</h1>
+                    <h1>Copy Game Settings</h1>
                     <h2>Grid Size</h2>
                     <p> 
-                        Using the slider below, please select the size of grid you would like to start with. <br>
-                        The size will become larger as the pattern continues to get larger. 
+                        Use the slider to select the size of grid. <br>
+                        The size will increase as you progress. 
                     </p>
                     <div class="slidecontainer">
                         <h3>Size: <input type="range" min="1" max="5" value="1" class="slider" id="myRange"> <span id="demo">1</span></h3>
@@ -32,45 +32,72 @@
                           output.innerHTML = this.value + " x " + this.value;
                         }
                     </script>
-                    <h2>Level Select</h2>
+                    <h2>Difficulty Select</h2>
                     <p>
-                        Pick a level below. <br>
-                        Each level corresponds to the amount of time each square in the pattern will flash <br>
-                        The harder the level, the less time you will have to look at the lit up square.
+                        Select a difficulty for the game. <br>
+                        This determines the duration of cell flashes.<br>
+                        The duration decreases with difficulty.
                     </p>
                     <div class="container">
-                        <input type="radio" name="LevelSelector">
-                            <label>Easy</label>
-                        <input type="radio" name="LevelSelector">
-                            <label>Medium</label>
-                        <input type="radio" name="LevelSelector">
-                            <label>Hard</label>
-                   </div>
+                        <input type="radio" id="difChoice1" name="difficulty" value="easy" checked/>
+                            <label for="difChoice1">Easy</label>
+                        <input type="radio" id="difChoice2" name="difficulty" value="medium"/>
+                            <label for="difChoice2">Medium</label>
+                        <input type="radio" id="difChoice3" name="difficulty" value="hard"/>
+                            <label for="difChoice3">Hard</label>
+                    </div>
 
-                   <h2>Directions</h2>
-                   <p>
-                        Once the game begins, a card in the grid will light up. When the light turns off you will<br>
-                        click it. Once again the card will light up, with a second light afterwards. You will then <br>
-                        click the cards in the right order. You have beat the level when you have reached the <br>
-                        longest pattern for that sized grid. You will then move to a new, larger grid where the <br>
-                        pattern will restart with one light.
-
+                    <h2>Color Select</h2>
+                    <p>
+                        Pick a color below. <br>
+                        The color is what the cells will flash to when they <br>
+                        light up during the game, then flash back to white.
                     </p>
+                    <input type="color" id="colorPick" name="colorPick" value="#1c87c9" />
+                    <label id="colorValue"></label>
+                    <script>
+                        let colorPicker;
+                        const defaultColor = document.querySelector("#colorPick").value;
+                        
+                        window.addEventListener("load", startup, false);
+                        function startup() {
+                            colorPicker = document.querySelector("#colorPick");
+                            colorPicker.value = defaultColor;
+                            document.getElementById("colorValue").innerHTML = defaultColor;
+                            colorPicker.addEventListener("input", updateFirst, false);
+                            colorPicker.addEventListener("change", updateAll, false);
+                            colorPicker.select();
+                        }
+                        function updateFirst(event) {
+                            const label = document.querySelector("#colorValue");
+                            if (label) {
+                                label.innerHTML = event.target.value;
+                            }
+                        }
 
-
+                    </script>
+                    
+                    <h2>Directions</h2>
+                    <p>
+                        When a cell in the grid flashes, click the cell. <br>
+                        A new longer series of cells will flash. <br>
+                        Click the cells in the correct order to progress. <br>
+                        The grid will get bigger, and the flashing will get faster. <br>
+                        If you mess up the order, it is game over. <br>
+                    </p>
+                    <p>
+                        Click "Play" to begin, or "Home" to return. <br>
+                    </p>
+                    <div class="center">
+                        <a href="game2.html">Play</a>
+                        <a href="index.html">Home</a>
+                    </div>
+                    
                 </div>
             </div>
             <div class="rightcolumn">
                 <div class="clearbox"></div>
             </div>
         </div>
-
-        <nav>
-            <div class="black-box">
-                <a href = "index.html" class="option">Home</a> <br>
-                <a href = "game2.html" class="option">Play</a> <br>
-            </div>
-        </nav>
-
     </body>
 </html>
