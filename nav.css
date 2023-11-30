@@ -39,3 +39,48 @@ body {
     background-color: #0056b3; /* Hover background color */
   }
   
+  /* Style for Dark Mode */
+
+  /* Dark Mode Toggle */
+
+  .dark {
+    background-color: #111111;
+    color: white;
+  }
+
+  .dark .option {
+    background-color: #ff0007; /* Button background color */
+  }
+
+  .dark .black-box {
+    border: 2px solid #FFF; /* Black border for the outline */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Add a subtle shadow to the box */
+    color: white;
+  }
+
+  .dark .box {
+    background-color: #000000; /* Button background color */
+  }
+
+  @keyframes darkModeFadeIn {
+    from {
+        background-color: black;
+        color: white;
+    }
+    to {
+        background-color: white;
+        color: black;
+    }
+  }
+
+  .dark-toggle {
+    position: relative;
+  }
+
+  .dark-toggle input {
+    color: #007bff;
+  }
+
+  .dark .dark-toggle input {
+    color: #ff0007;
+  }

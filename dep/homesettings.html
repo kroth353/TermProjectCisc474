@@ -1,7 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Home Page Settings</title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="../nav.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script defer src="../js/scripts.js"></script>
+        <title>Home Page Settings</title>
+    </head>
+    <body>
+        <div class="black-box">
+            <button onclick="renderPage('home')" class="option">Home</button><br>
+            <h2>Appearance</h2>
+
+            <div class="dark-toggle">
+                <label class="radio-label">
+                    <input type="radio" name="theme" onclick="darkMode()" value="light">
+                    <span class="radio-button"></span> Light
+                </label><br>
+                <label class="radio-label">
+                    <input type="radio" name="theme" onclick="darkMode()" value="dark">
+                    <span class="radio-button"></span> Dark
+                </label>
+            </div>
+            
+        </div>
+        <script>
+            $(document).ready(function(){
+                console.log("page ready");
+            });
+        </script>
+    </body>
+</html>

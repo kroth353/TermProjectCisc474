@@ -146,9 +146,24 @@ function renderPage(page) {
             </div>
         </nav>
         `;
-    } else if (page == "homeSettings") {
+    } else if (page == "homesettings") {
         htmlStr = `
-        
+        <div class="black-box">
+            <button onclick="renderPage('home')" class="option">Home</button><br>
+            <h2><u>Appearance</u></h2>
+            
+            <div class="dark-toggle">
+                <label class="radio-label">
+                    <input type="radio" name="theme" onclick="darkMode()" value="light">
+                    <span class="radio-button"></span> Light
+                </label><br>
+                <label class="radio-label">
+                    <input type="radio" name="theme" onclick="darkMode()" value="dark">
+                    <span class="radio-button"></span> Dark
+                </label>
+            </div>
+            
+        </div>
         `;
     } else if (page == "home") {
         htmlStr = `
@@ -160,10 +175,11 @@ function renderPage(page) {
         </header>
         <nav>
             <div class="black-box">
-                <!--<button onclick="renderPage(homeSettings)" class="option">Home</a> <br>-->
+                <!--<button onclick="renderPage('home')" class="option">Home</a> <br>-->
+                <button onclick="renderPage('login')" class="option">Login</a> <br>
                 <button onclick="renderPage('game1settings')" class="option">Game 1</a> <br>
                 <button onclick="renderPage('game2settings')" class="option">Game 2</a> <br>
-                <button onclick="renderPage('homeSettings')" class="option">Settings</a>
+                <button onclick="renderPage('homesettings')" class="option">Settings</a>
                 </div>
             </div>
         </nav>
@@ -275,4 +291,47 @@ function validateLoginForm() {
     setLoginError(errorMessage);
     console.log("passed " + passed);
     return passed;
+}
+
+// Code for Dark Mode functionality
+document.addEventListener('DOMContentLoaded', function () {
+    var selectedTheme = sessionStorage.getItem('selectedTheme') || 'light';
+    applyTheme(selectedTheme);
+
+    var radioButtons = document.querySelectorAll('input[name="theme"]');
+    radioButtons.forEach(function (radioButton) {
+        radioButton.addEventListener('click', function () {
+            sessionStorage.setItem('selectedTheme', this.value);
+            applyTheme(this.value);
+        });
+    });
+
+    var selectedRadioButton = document.querySelector('input[name="theme"][value="' + selectedTheme + '"]');
+    if (selectedRadioButton) {
+        selectedRadioButton.checked = true;
+    }
+});
+
+function darkMode() {
+    var selectedTheme = document.querySelector('input[name="theme"]:checked').value;
+    var element = document.body;
+
+    localStorage.setItem('selectedTheme', selectedTheme);
+
+    applyTheme(selectedTheme);
+}
+
+function applyTheme(selectedTheme) {
+    var element = document.body;
+    var transitionProperties = "background-color 0.5s, color 0.5s";
+    var animation = selectedTheme === 'dark' ? "darkModeFadeIn 0.5s" : "darkModeFadeIn 0.5s reverse";
+
+    element.style.transition = transitionProperties;
+    element.style.animation = animation;
+
+    if (selectedTheme === 'dark') {
+        element.classList.add('dark');
+    } else {
+        element.classList.remove('dark');
+    }
 }
