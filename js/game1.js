@@ -4,6 +4,9 @@ let colors = ["Brown", "ForestGreen", "Lavender", "Magenta", "Mint", "Teal", "ba
 let numbers = ["1", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "2", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "3", "30", "31", "32", "4", "5", "6", "7", "8", "9"];
 var matchStr = "";
 var imgOption = 1;
+var score = 0;
+var lives = 3;
+var numLeft = 0;
 
 function createCards() {
     console.log("creating " + numCards + " cards");
@@ -36,22 +39,17 @@ function createCards() {
 
      //array should be sequence of number with two of each number
     shuffleArray(arrayOption);
-    //console.log(arrayOption);
+    
     for(let i = 0; i<(numCards); i++) {
         cardStr = imgs[arrayOption[i]];
         console.log(cardStr);
-        htmlStr += "<div id='" + cardStr + "class='item-card' style='width: " + cardWidth + "px; height: " + 
-                    cardHeight + "px'";
+        htmlStr += "<div id='" + cardStr + i + "' class='item-card' style='width: " + cardWidth + "px; height: " + 
+                    cardHeight + "px'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/card.png'></div>";
     }
-
+    console.log("htmlStr" + htmlStr);
     document.getElementById('memory-game').innerHTML = htmlStr;
-    for(let j = 0; j<(numCards); j++) {
-        cardStr = imgs[arrayOption[j]];
-        console.log(cardStr);
-        //document.getElementById(cardStr).addEventListener('click', flipCard);
-        //document.getElementById(cardStr).addEventListener('click', flipCard);
-    }
-    console.log("flip listener created");
+    document.getElementById('lives').innerHTML = "<p>Lives: " + lives + "</p>";
+    document.getElementById('score').innerHTML = "<p>Score: " + score + "</p>";
 }
 
 function hideStartButton() {
@@ -59,28 +57,67 @@ function hideStartButton() {
     console.log("start button hidden");
 }
 
-function startGame() {
+async function startGame() {
     console.log("game started");
+    numLeft = numCards;
     hideStartButton();
     createCards();
     console.log("before first flip");
-    //flipCard();
-    sleep(2000);
-    //flipCard();
+    await sleep(1000);
+    flipAllCards();
+    await sleep(10000);
+    flipAllCards();
+    addClickListenerToAll();
 }
 
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
+function addClickListenerToAll() {
+    document.querySelectorAll('.item-card').forEach(c => {
+        c.addEventListener('click', flipCard);
+    });
+    console.log("flip listener created");
 }
 
-/*function flipCard() {
+const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
+async function flipCard() {
     //console.log("flip: " + this.id);
+    this.removeEventListener('click', flipCard);
     this.classList.toggle('flip');
-}*/
+    let id = this.id;
+    console.log("id: " + id);
+    console.log("matchStr: " + matchStr);
+    if(matchStr == "") {
+        matchStr = id;
+    } else if (matchStr.replace(/[0-9]/g, '') == id.replace(/[0-9]/g, '')) {
+        numLeft -= 2;
+        matchStr = "";
+        score += 10;
+        document.getElementById('score').innerHTML = "<p>Score: " + score + "</p>";
+        if (numLeft == 0) {
+            startGame();
+        }
+    } else {
+        await sleep(2000);
+        this.classList.toggle('flip');
+        document.getElementById(matchStr).classList.toggle('flip');
+        this.addEventListener('click', flipCard);
+        document.getElementById(matchStr).addEventListener('click', flipCard);
+        matchStr = "";
+        lives -= 1;
+        document.getElementById('lives').innerHTML = "<p>Lives: " + lives + "</p>";
+        if(lives == 0) {
+            lives = 3;
+            document.getElementById('memory-game').innerHTML = "<button onclick='startGame()'>Restart</button>";
+            score = 0;
+        }
+    }
+}
+
+function flipAllCards() {
+    document.querySelectorAll('.item-card').forEach(c => {
+        c.classList.toggle('flip');
+    });
+}
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {

@@ -3,8 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="styles.css">
+        <link rel="stylesheet" type="text/css" href="game1.css">
         <link rel="stylesheet" type="text/css" href="nav.css">
+        <script defer src="js/game1.js"></script>
+        <script defer src="js/scripts.js"></script>
         <title>Home Page</title>
     </head>
 
@@ -15,29 +19,20 @@
                     Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
                 </p>
         </header>
-        <!--
-        <div class="game-one">
-            <a href="https://kroth353.github.io/TermProjectCisc474/game1Settings" class="settings-button" style="width: 50%;"><img src="icons/settings.png"></a>
-        </div>
-        <a href="https://kroth353.github.io/TermProjectCisc474/game1">Game 1</a>
-
-        <div class="game-two">
-            <a href="https://kroth353.github.io/TermProjectCisc474/game2Settings" class="settings-button" style="width: 50%;"><img src="icons/settings.png"></a>
-        </div>
-        <a href="https://kroth353.github.io/TermProjectCisc474/game2">Game 2</a>
-        -->
-    </body>
-
-    <body>
-      <nav>
-        <div class="black-box">
-          <a href = "index.html" class="option">Home</a> <br>
-          <a href = "game1Settings.html" class="option">Game 1 Settings</a> <br>
-          <a href = "game2settings.html" class="option">Game 2 Settings</a> <br>
-          <a href = "homesettings.html" class="option">Settings</a>
-          </div>
-        </div>
-      </nav>
+        <nav>
+            <div class="black-box">
+                <button onclick="renderPage('login')" class="option">Login</a> <br>
+                <button onclick="renderPage('game1settings')" class="option">Game 1</a> <br>
+                <button onclick="renderPage('game2settings')" class="option">Game 2</a> <br>
+                <button onclick="renderPage('homeSettings')" class="option">Settings</a>
+                </div>
+            </div>
+        </nav>
+        <script>
+            $(document).ready(function(){
+                console.log("page ready");
+            });
+        </script>
     </body>
 </html>
 
