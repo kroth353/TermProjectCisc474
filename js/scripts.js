@@ -135,6 +135,10 @@ function renderPage(page) {
     } else if (page == "game1") {
         htmlStr = `
         <button id="start-button" onclick="startGame()">Start Game</button>
+        <div class='header-box'>
+            <div id='lives'></div>
+            <div id='score'></div>
+        </div>
         <section id="memory-game" class="memory-game"></section>
         `;
     } else if (page == "game2") {
