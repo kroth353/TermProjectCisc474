@@ -24,15 +24,41 @@
                 <button onclick="renderPage('login')" class="option">Login</a> <br>
                 <button onclick="renderPage('game1settings')" class="option">Game 1</a> <br>
                 <button onclick="renderPage('game2settings')" class="option">Game 2</a> <br>
-                <button onclick="renderPage('homeSettings')" class="option">Settings</a>
+                <button onclick="renderPage('homesettings')" class="option">Settings</a>
                 </div>
             </div>
         </nav>
+
+        
+        <!--
+            Dark Mode code to be moved into home settings once render issues are fixed
+        <div class="dark-toggle">
+            <label class="switch">
+                <input type="checkbox" onclick="darkMode()">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
         <script>
             $(document).ready(function(){
                 console.log("page ready");
             });
+
+            //Code for Dark Mode functionality
+            function darkMode() {
+                var element = document.body;
+                element.classList.toggle("dark");
+
+                if (element.classList.contains("dark")) {
+                    element.style.transition = "background-color 0.5s, color 0.5s";
+                    element.style.animation = "darkModeFadeIn 0.5s";
+                } else {
+                    element.style.transition = "background-color 0.5s, color 0.5s";
+                    element.style.animation = "darkModeFadeIn 0.5s reverse";
+                }
+            }
         </script>
+        -->
     </body>
 </html>
 
