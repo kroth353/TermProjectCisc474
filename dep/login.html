@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="../nav.css">
+        <title>Game 1 Settings</title>
+    </head>
+    <body>
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
+        </div>
+        <div class="content">
+            <div class="black-box">
+                <div class="tabs">
+                    <button class="tabLinks" onClick="openPrompt(event, 'loginForm')" id="default">Log In</button>
+                    <button class="tabLinks" onClick="openPrompt(event, 'signupForm')">Sign Up</button>
+                </div>
+    
+                <div id="loginForm" class="userTab">
+                    <h1>Log In</h1>
+                    <form name="loginForm" onsubmit="return false;">
+                        <div>
+                            <input name="login_username" class="userInfo" type="email" id="login_username" placeholder="Enter Username">
+                            <br>
+                            <input id="login_password" class="userInfo" name="login_password" type="text" placeholder="Enter Password">
+                        </div>
+                    </form>
+                    <p id="loginFormError"></p>
+                    <button class="option" onClick="login()">Log in</button>
+                </div>
+    
+                <div id="signupForm" class="userTab">
+                    <h1>Sign Up</h1>
+                    <form name="signupForm" onsubmit="return false;">
+                        <div>
+                            <input id="signup_username" class="userInfo" name="signup_username" type="text" placeholder="Enter Username">
+                            <br>
+                            <input name="signup_email" class="userInfo" type="email" id="signup_email" placeholder="Enter Email">
+                            <br>
+                            <input id="signup_password" class="userInfo" name="signup_password" type="text" placeholder="Enter Password">
+                            <br>
+                            <input id="signup_password_con" class="userInfo" name="signup_password_con" type="text" placeholder="Confirm Password">
+                        </div>
+                    </form>
+                    <p id="signupFormError"></p>
+                    <button id="signup" class="option" onclick="signup()">Sign Up</button>
+                </div>
+                <button onclick="renderPage('home')" class="option">Home</button><br>
+            </div>
+        </div>
+        <script src="../js/scripts.js"></script>
+    </body>
+</html>

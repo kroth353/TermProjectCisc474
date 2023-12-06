@@ -4,61 +4,34 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="nav.css">
         <link rel="stylesheet" type="text/css" href="styles.css">
         <link rel="stylesheet" type="text/css" href="game1.css">
-        <link rel="stylesheet" type="text/css" href="nav.css">
         <script defer src="js/game1.js"></script>
         <script defer src="js/scripts.js"></script>
         <title>Home Page</title>
     </head>
 
     <body>
-        <header>
-            <h1>Game Library</h1>
-                <p>
-                    Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                </p>
-        </header>
-        <nav>
-            <div class="black-box">
-                <button onclick="renderPage('login')" class="option">Login</a> <br>
-                <button onclick="renderPage('game1settings')" class="option">Game 1</a> <br>
-                <button onclick="renderPage('game2settings')" class="option">Game 2</a> <br>
-                <button onclick="renderPage('homesettings')" class="option">Settings</a>
-                </div>
-            </div>
-        </nav>
-
-        
-        <!--
-            Dark Mode code to be moved into home settings once render issues are fixed
-        <div class="dark-toggle">
-            <label class="switch">
-                <input type="checkbox" onclick="darkMode()">
-                <span class="slider round"></span>
-            </label>
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
         </div>
-
-        <script>
-            $(document).ready(function(){
-                console.log("page ready");
-            });
-
-            //Code for Dark Mode functionality
-            function darkMode() {
-                var element = document.body;
-                element.classList.toggle("dark");
-
-                if (element.classList.contains("dark")) {
-                    element.style.transition = "background-color 0.5s, color 0.5s";
-                    element.style.animation = "darkModeFadeIn 0.5s";
-                } else {
-                    element.style.transition = "background-color 0.5s, color 0.5s";
-                    element.style.animation = "darkModeFadeIn 0.5s reverse";
-                }
-            }
-        </script>
-        -->
+        <div class="content">
+            <nav>
+                <div class="black-box">
+                    <button onclick="renderPage('login')" class="option">Login</a> <br>
+                    <button onclick="renderPage('game1settings')" class="option">Game 1</a> <br>
+                    <button onclick="renderPage('game2settings')" class="option">Game 2</a> <br>
+                    <button onclick="renderPage('homesettings')" class="option">Settings</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </body>
 </html>
 

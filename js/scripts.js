@@ -152,21 +152,29 @@ function renderPage(page) {
         `;
     } else if (page == "homesettings") {
         htmlStr = `
-        <div class="black-box">
-            <button onclick="renderPage('home')" class="option">Home</button><br>
-            <h2><u>Appearance</u></h2>
-            
-            <div class="dark-toggle">
-                <label class="radio-label">
-                    <input type="radio" name="theme" onclick="darkMode()" value="light">
-                    <span class="radio-button"></span> Light
-                </label><br>
-                <label class="radio-label">
-                    <input type="radio" name="theme" onclick="darkMode()" value="dark">
-                    <span class="radio-button"></span> Dark
-                </label>
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
+        </div>
+        <div class="content">
+            <div class="black-box">
+                <button onclick="renderPage('home')" class="option">Home</button><br>
+                <h2>Appearance</h2>
+                <div class="dark-toggle">
+                    <label class="radio-label">
+                        <input type="radio" name="theme" onclick="darkMode()" value="light">
+                        <span class="radio-button"></span> Light
+                    </label><br>
+                    <label class="radio-label">
+                        <input type="radio" name="theme" onclick="darkMode()" value="dark">
+                        <span class="radio-button"></span> Dark
+                    </label>
+                </div>
             </div>
-            
         </div>
         `;
     } else if (page == "home") {
@@ -190,30 +198,52 @@ function renderPage(page) {
         `;
     } else if (page == "login") {
         htmlStr = `
-        <div>
-            <form id="loginForm" name="loginForm" onsubmit="return false;">
-                <div>
-                    <input name="login_username" type="email" id="login_username" placeholder="Enter Username">
-                    <br>
-                    <input id="login_password" name="login_password" type="text" placeholder="Password">
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
+        </div>
+        <div class="content">
+            <div class="black-box">
+                <div class="tabs">
+                    <button class="tabLinks" onClick="openPrompt(event, 'loginForm')" id="default">Log In</button>
+                    <button class="tabLinks" onClick="openPrompt(event, 'signupForm')">Sign Up</button>
                 </div>
-            </form>
-            <p id="loginFormError"></p>
-            <button onClick="login()">Log in</button>
-            <h1>or</h1>
-            <form id="signupForm" name="signupForm" onsubmit="return false;">
-                <div>
-                    <input id="signup_username" name="signup_username" type="text" placeholder="Enter Username">
-                    <br>
-                    <input name="signup_email" type="email" id="signup_email" placeholder="Enter Email">
-                    <br>
-                    <input id="signup_password" name="signup_password" type="text" placeholder="Password">
-                    <br>
-                    <input id="signup_password_con" name="signup_password_con" type="text" placeholder="Confirm Password">
+    
+                <div id="loginForm" class="userTab">
+                    <h1>Log In</h1>
+                    <form name="loginForm" onsubmit="return false;">
+                        <div>
+                            <input name="login_username" class="userInfo" type="email" id="login_username" placeholder="Enter Username">
+                            <br>
+                            <input id="login_password" class="userInfo" name="login_password" type="text" placeholder="Enter Password">
+                        </div>
+                    </form>
+                    <p id="loginFormError"></p>
+                    <button class="option" onClick="login()">Log in</button>
                 </div>
-            </form>
-            <p id="signupFormError"></p>
-            <button id="signup" onclick="signup()">Sign up</button>
+    
+                <div id="signupForm" class="userTab">
+                    <h1>Sign Up</h1>
+                    <form name="signupForm" onsubmit="return false;">
+                        <div>
+                            <input id="signup_username" class="userInfo" name="signup_username" type="text" placeholder="Enter Username">
+                            <br>
+                            <input name="signup_email" class="userInfo" type="email" id="signup_email" placeholder="Enter Email">
+                            <br>
+                            <input id="signup_password" class="userInfo" name="signup_password" type="text" placeholder="Enter Password">
+                            <br>
+                            <input id="signup_password_con" class="userInfo" name="signup_password_con" type="text" placeholder="Confirm Password">
+                        </div>
+                    </form>
+                    <p id="signupFormError"></p>
+                    <button id="signup" class="option" onclick="signup()">Sign Up</button>
+                </div>
+                <button onclick="renderPage('home')" class="option">Home</button><br>
+            </div>
         </div>
         `;
     }
@@ -338,4 +368,21 @@ function applyTheme(selectedTheme) {
     } else {
         element.classList.remove('dark');
     }
+}
+// Code for Tab Switching 
+function openPrompt(evt, status) {
+    var i, userTab, tabLinks;
+
+    userTab = document.getElementsByClassName("userTab");
+    for (i = 0; i < userTab.length; i++) {
+        userTab[i].style.display = "none";
+    }
+
+    tabLinks = document.getElementsByClassName("tabLinks");
+    for (i = 0; i < tabLinks.length; i++) {
+        tabLinks[i].className = tabLinks[i].className.replace(" active", "");
+    }
+
+    document.getElementById(status).style.display = "block";
+    evt.currentTarget.className += " active";
 }

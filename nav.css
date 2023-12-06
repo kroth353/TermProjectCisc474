@@ -40,9 +40,7 @@ body {
   }
   
   /* Style for Dark Mode */
-
-  /* Dark Mode Toggle */
-
+  
   .dark {
     background-color: #111111;
     color: white;
@@ -61,6 +59,27 @@ body {
   .dark .box {
     background-color: #000000; /* Button background color */
   }
+
+  .dark .tabs {
+    overflow: hidden;
+    /*border: 1px solid #ccc;*/ 
+    background-color: #1f1f1f;
+  }
+
+  .dark .tabs button {
+    color: #fff;
+  }
+
+  .dark .tabs button:hover {
+    background-color: #333;
+  }
+  
+  .dark .tabs button.active {
+    background-color: #ff0007;
+    color: #ffffff;
+  }
+
+  /* Dark Mode Toggle */
 
   @keyframes darkModeFadeIn {
     from {
@@ -83,4 +102,59 @@ body {
 
   .dark .dark-toggle input {
     color: #ff0007;
+  }
+
+  /* Style for the Login Page */
+
+  .tabs {
+    overflow: hidden;
+    /*border: 1px solid #ccc;*/ 
+    background-color: #f1f1f1;
+  }
+  
+  /* Style the buttons that are used to open the tab content */
+  .tabs button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+  
+  /* Change background color of buttons on hover */
+  .tabs button:hover {
+    background-color: #ddd;
+  }
+  
+  /* Create an active/current tablink class */
+  .tabs button.active {
+    background-color: #007bff;
+    color: #ffffff;
+  }
+  
+  /* Style the tab content */
+  .userTab {
+    display: none;
+    border-top: none;
+  }
+  
+  .loginForm {
+    border: none;
+  }
+  
+  .userInfo {
+    background-color: rgba(255,255,255,0.25);
+    padding: 10px;
+    margin: 5px 0 5px 0;
+    border: none;
+    border-radius: 5px;
+    color: #000;
+    box-shadow: inset 0px 0px 5px rgba(0,0,0,0.5)
+  }
+  
+  .userInfo::placeholder {
+    color: #000;
   }
