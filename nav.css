@@ -1,86 +1,187 @@
 /* Style for the container */
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* This ensures the container takes up the full viewport height */
-    margin: 0; /* Remove default body margin */
-    background-color: #f0f0f0; /* Background color for the entire page */
-  }
-  
-  /* Style for the black box outline */
-  .black-box {
-    border: 2px solid #000; /* Black border for the outline */
-    color: #000; /* Text color for the options */
-    width: 300px; /* Adjust the width as needed */
-    padding: 20px; /* Add some padding inside the box */
-    border-radius: 10px; /* Add rounded corners to the outline */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to the box */
-    text-align: center; /* Center the text horizontally */
-  }
-  
-  /* Style for the options (buttons) */
-  .option {
-    display: block;
-    padding: 10px;
-    margin: 10px auto; /* Center the options horizontally and add space between them vertically */
-    text-decoration: none; /* Remove underlines */
-    font-weight: bold; /* Make the text bold */
-    background-color: #007bff; /* Button background color */
-    color: #fff; /* Button text color */
-    border: none;
-    border-radius: 5px; /* Rounded corners for the buttons */
-    cursor: pointer; /* Add pointer cursor on hover */
-    transition: background-color 0.3s ease; /* Add a smooth transition on hover */
-  }
-  
-  /* Style for the options (buttons) when hovered */
-  .option:hover {
-    background-color: #0056b3; /* Hover background color */
-  }
-  
-  /* Style for Dark Mode */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0; /* Remove default body margin */
+  background-color: #f0f0f0; /* Background color for the entire page */
+}
 
-  /* Dark Mode Toggle */
+/* Style for the black box outline */
+.black-box {
+  border: 2px solid #000; /* Black border for the outline */
+  color: #000; /* Text color for the options */
+  width: 300px; /* Adjust the width as needed */
+  padding: 20px; /* Add some padding inside the box */
+  border-radius: 10px; /* Add rounded corners to the outline */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add a subtle shadow to the box */
+  text-align: center; /* Center the text horizontally */
+}
 
-  .dark {
-    background-color: #111111;
-    color: white;
-  }
+.heading {
+  padding: 10px; /* Adjust padding as needed */
+  text-align: center; /* Centers text in the element */
+  position: fixed; /* Ensures content remains at the top of the page */
+  width: 100%; /* Makes sure the width spreads across the page */
+  top: 0; /* Locks the heading info to the top */
+  z-index: 1000; /* Set a high z-index to make sure it appears above other content */
+  margin-bottom: 10px;
+}
 
-  .dark .option {
-    background-color: #ff0007; /* Button background color */
-  }
+.heading .title {
+  font-size: 48px;
+}
 
-  .dark .black-box {
-    border: 2px solid #FFF; /* Black border for the outline */
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Add a subtle shadow to the box */
-    color: white;
-  }
+.content {
+  position: relative;
+  text-align: center; /* Centers text in the element */
+}
 
-  .dark .box {
-    background-color: #000000; /* Button background color */
-  }
+/* Style for the options (buttons) */
+.option {
+  display: block;
+  padding: 10px;
+  margin: 10px auto; /* Center the options horizontally and add space between them vertically */
+  text-decoration: none; /* Remove underlines */
+  font-weight: bold; /* Make the text bold */
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  border: none;
+  border-radius: 5px; /* Rounded corners for the buttons */
+  cursor: pointer; /* Add pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Add a smooth transition on hover */
+}
 
-  @keyframes darkModeFadeIn {
-    from {
-        background-color: black;
-        color: white;
-    }
-    to {
-        background-color: white;
-        color: black;
-    }
-  }
+/* Style for the options (buttons) when hovered */
+.option:hover {
+  background-color: #0056b3; /* Hover background color */
+}
 
-  .dark-toggle {
-    position: relative;
-  }
+/* Style for Dark Mode */
 
-  .dark-toggle input {
-    color: #007bff;
-  }
+.dark {
+  background-color: #111111;
+  color: white;
+}
 
-  .dark .dark-toggle input {
-    color: #ff0007;
+.dark .option {
+  background-color: #ff0007; /* Button background color */
+}
+
+.dark .black-box {
+  border: 2px solid #FFF; /* Black border for the outline */
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Add a subtle shadow to the box */
+  color: white;
+}
+
+.dark .box {
+  background-color: #000000; /* Button background color */
+}
+
+.dark .tabs {
+  overflow: hidden;
+  /*border: 1px solid #ccc;*/ 
+  background-color: #1f1f1f;
+}
+
+.dark .tabs button {
+  color: #fff;
+}
+
+.dark .tabs button:hover {
+  background-color: #333;
+}
+
+.dark .tabs button.active {
+  background-color: #ff0007;
+  color: #ffffff;
+}
+
+.dark .userInfo::placeholder {
+  color: #fff;
+}
+
+/* Dark Mode Toggle */
+
+@keyframes darkModeFadeIn {
+  from {
+      background-color: black;
+      color: white;
   }
+  to {
+      background-color: white;
+      color: black;
+  }
+}
+
+.dark-toggle {
+  position: relative;
+}
+
+.dark-toggle input {
+  color: #007bff;
+}
+
+.userInfo {
+  color: #fff;
+}
+
+.dark .dark-toggle input {
+  color: #ff0007;
+}
+
+/* Style for the Login Page */
+
+.tabs {
+  overflow: hidden;
+  /*border: 1px solid #ccc;*/ 
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tabs button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tabs button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tabs button.active {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+/* Style the tab content */
+.userTab {
+  display: none;
+  border-top: none;
+}
+
+.loginForm {
+  border: none;
+}
+
+.userInfo {
+  background-color: rgba(255,255,255,0.25);
+  padding: 10px;
+  margin: 5px 0 5px 0;
+  border: none;
+  border-radius: 5px;
+  color: #000;
+  box-shadow: inset 0px 0px 5px rgba(0,0,0,0.5)
+}
+
+.userInfo::placeholder {
+  color: #000;
+}
