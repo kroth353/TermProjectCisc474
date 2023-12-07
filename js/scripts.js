@@ -9,6 +9,14 @@ function renderPage(page) {
     let htmlStr = "";
     if(page == "game1settings") {
         htmlStr = `
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
+        </div>
         <div class="row">
             <div class="leftcolumn">
                 <div class="clearbox"></div>
@@ -74,6 +82,14 @@ function renderPage(page) {
         </nav>`;
     } else if (page == "game2settings") {
         htmlStr = `
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
+        </div>
         <div class="row">
             <div class="leftcolumn">
                 <div class="clearbox"></div>
@@ -134,7 +150,17 @@ function renderPage(page) {
         `;
     } else if (page == "game1") {
         htmlStr = `
-        <button id="start-button" onclick="startGame()">Start Game</button>
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
+        </div>
+        <div class="content">
+            <button id="start-button" class="option" onclick="startGame()">Start Game</button>
+        </div>
         <div class='header-box'>
             <div id='lives'></div>
             <div id='score'></div>
@@ -143,6 +169,14 @@ function renderPage(page) {
         `;
     } else if (page == "game2") {
         htmlStr = `
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
+        </div>
         <nav>
             <div class="black-box">
                 <a href = "index.html" class="option">Home</a> <br>
@@ -179,12 +213,14 @@ function renderPage(page) {
         `;
     } else if (page == "home") {
         htmlStr = `
-        <header>
-            <h1>Game Library</h1>
-                <p>
-                    Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                </p>
-        </header>
+        <div class="heading">
+            <header>
+                <h1 class="title">Game Library</h1>
+                    <p>
+                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
+                    </p>
+            </header>
+        </div>
         <nav>
             <div class="black-box">
                 <!--<button onclick="renderPage('home')" class="option">Home</a> <br>-->

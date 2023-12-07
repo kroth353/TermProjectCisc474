@@ -48,8 +48,8 @@ function createCards() {
     }
     console.log("htmlStr" + htmlStr);
     document.getElementById('memory-game').innerHTML = htmlStr;
-    document.getElementById('lives').innerHTML = "<p>Lives: " + lives + "</p>";
-    document.getElementById('score').innerHTML = "<p>Score: " + score + "</p>";
+    document.getElementById('lives').innerHTML = "<p style='padding-top:75px'>Lives: " + lives + "</p>";
+    document.getElementById('score').innerHTML = "<p style='padding-top:75px'>Score: " + score + "</p>";
 }
 
 function hideStartButton() {
@@ -107,7 +107,7 @@ async function flipCard() {
         document.getElementById('lives').innerHTML = "<p>Lives: " + lives + "</p>";
         if(lives == 0) {
             lives = 3;
-            document.getElementById('memory-game').innerHTML = "<button onclick='startGame()'>Restart</button>";
+            document.getElementById('memory-game').innerHTML = "<button class='option' onclick='startGame()'>Restart</button>";
             score = 0;
         }
     }
