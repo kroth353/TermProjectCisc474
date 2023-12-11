@@ -106,6 +106,7 @@ async function flipCard() {
         lives -= 1;
         document.getElementById('lives').innerHTML = "<p>Lives: " + lives + "</p>";
         if(lives == 0) {
+            highscore(score);
             lives = 3;
             document.getElementById('memory-game').innerHTML = "<button class='option' onclick='startGame()'>Restart</button>";
             score = 0;
@@ -131,3 +132,22 @@ function shuffleArray(array) {
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Ready");
 });
+
+//need to add different game values depending on settings
+function highscore(score) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id');
+    $.ajax({
+        url: `/api/v1/highscore?id=${id}&score=${score}&game=game1`,
+        type: 'POST',
+        success: function (result) {
+            console.log("highscore");
+            const url = new URL(window.location.href);
+            const resultStr = JSON.stringify(result);
+            const unquoted = resultStr.replace(/\"/g, "");
+            url.searchParams.set("id", unquoted);
+            history.pushState({}, "", url)
+        }
+    });
+}

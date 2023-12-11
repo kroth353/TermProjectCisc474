@@ -5,7 +5,9 @@ function dimslider() {
     output.innerHTML = this.value;
 }
 
-function renderPage(page) {
+var topTen = new Array();
+
+async function renderPage(page) {
     let htmlStr = "";
     if(page == "game1settings") {
         htmlStr = `
@@ -166,7 +168,20 @@ function renderPage(page) {
             <div id='score'></div>
         </div>
         <section id="memory-game" class="memory-game"></section>
+        <div id="game1-leaderboard" class="leaderboard">
         `;
+        const result = await getTopTen("game1");
+        console.log("topTen in render: " + topTen);
+        for(let i=0; i<topTen.length; i++) {
+            console.log("topTen[" + i + "]: " + topTen[i]);
+            let val = JSON.parse(topTen[i]);
+            let username = val["username"];
+            let score = val["score"];
+            htmlStr += `
+            <div id="leaderboard-item${i+1}" class="leaderboard-item"><p>${username}</p><p>${score}</p></div>
+            `;
+        }
+        htmlStr += "</div>";
     } else if (page == "game2") {
         htmlStr = `
         <div class="heading">
@@ -286,32 +301,60 @@ function renderPage(page) {
     document.body.innerHTML = htmlStr;
 }
 
+const getTopTen = (game) => new Promise((resolve) => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id');
+    $.ajax({
+        url: `/api/v1/leaderboard?game=${game}`,
+        type: 'GET',
+        async: false,
+        success: function (result) {
+            if(id) {
+                const url = new URL(window.location.href);
+                url.searchParams.set("id", id);
+                history.pushState({}, "", url)
+            }
+            let returnStr = result.substring(1, result.length-1);
+            let returnArr = returnStr.split(/,(?<=},)/);
+            console.log("parsed: " + result);
+            topTen = returnArr;
+        }
+    });
+    resolve('success');
+});
+
 function signup() {
     $.ajax({
-        url: "/api/v1/addUser?username=" + document.getElementById("signup_username").value
-            + "&email=" + document.getElementById("signup_email").value
-            + "&password=" + document.getElementById("signup_password").value,
+        url: `/api/v1/addUser?username=${document.getElementById("signup_username").value}&email=${document.getElementById("signup_email").value}&password=${document.getElementById("signup_password").value}`,
         type: 'POST',
         success: function (result) {
             console.log("Add Returned");
+            const url = new URL(window.location.href);
+            const resultStr = JSON.stringify(result);
+            const unquoted = resultStr.replace(/\"/g, "");
+            url.searchParams.set("id", unquoted);
+            history.pushState({}, "", url)
         }
     });
 }
 
 function login() {
     $.ajax({
-        url: "/api/v1/login?username=" + document.getElementById("login_username").value
-            + "&password=" + document.getElementById("login_password").value,
+        url: `/api/v1/login?username=${document.getElementById("login_username").value}&password=${document.getElementById("login_password").value}`,
         type: 'GET',
         success: function (result) {
             console.log("logged in");
             const url = new URL(window.location.href);
-            url.searchParams.set("id", JSON.stringify(result));
+            const resultStr = JSON.stringify(result);
+            const unquoted = resultStr.replace(/\"/g, "");
+            url.searchParams.set("id", unquoted);
             history.pushState({}, "", url)
-        },
+        }
     });
 }
 
+/*
 function validateSignupForm() {
     var passed = false;
     let user_fname = document.getElementById("signup_fname").value;
@@ -362,6 +405,7 @@ function validateLoginForm() {
     console.log("passed " + passed);
     return passed;
 }
+*/
 
 // Code for Dark Mode functionality
 document.addEventListener('DOMContentLoaded', function () {

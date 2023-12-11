@@ -1,3 +1,5 @@
+
+
 // db
 
 // node and express
@@ -19,7 +21,7 @@ app.listen(port, () => {
 
 // mongoDB connection
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = "mongodb+srv://jasonh:April.5.2002@cluster0.qreeccy.mongodb.net/?retryWrites=true&w=majority";
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -87,14 +89,70 @@ async function run() {
     // delete account
 
     app.delete('/api/v1/deleteUser', function(req, res){
-    const userID = req.query.id;
-    deleteUser(client, userID);
-    res.send(userID);
+        const userID = req.query.id;
+        deleteUser(client, userID);
+        res.send(userID);
     });
 
     async function deleteUser(client, userID) {
         await client.db("cluster0").collection("users").deleteOne( {"__id": ObjectID(userID)} );
     }
+
+    //send highscore
+
+    app.post('/api/v1/highscore', async function(req, res) {
+        const id = req.query.id;
+        const score = req.query.score;
+        const game = req.query.game;
+        console.log("highscore{id:" + id + ",score:" + score + ",game:" + game + "}");
+        const boolHighScore = await checkHighScore(id, score, game);
+        if(boolHighScore) {
+            console.log("checkHighScore is true");
+            pushHighScore(id, score, game);
+            console.log("highscore posted");
+        }
+        res.end(id);
+    });
+    
+    async function checkHighScore(id, score, game) {
+        if(id) {
+            let currentHighScore = await client.db("cluster0").collection(game).findOne( {"id": id}, {"score":1} );
+            if(currentHighScore == null) {
+                console.log("currentHighScore is null");
+                return true;
+            } else {
+                let currentHighScoreVal = currentHighScore.score;
+                console.log("current highscore: " + currentHighScoreVal);
+                if (score > currentHighScoreVal) {
+                    console.log("new highscore");
+                    const result = await client.db("cluster0").collection(game).deleteOne( {"id": id} );
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+    }
+    
+    async function pushHighScore(id, score, game) {
+        console.log("pushing high score");
+        const uId = new ObjectId(id);
+        const u = await client.db("cluster0").collection("users").findOne( {"_id": uId}, {"username": 1} );
+        client.db("cluster0").collection(game).insertOne( {"id": id, "username": u.username, "score": score} );
+    }
+
+    app.get('/api/v1/leaderboard', async function(req, res) {
+        const game = req.query.game;
+        //const topTen = {"topTenArr": []};
+        const topTen = await client.db("cluster0").collection(game).find().sort({ "score":1 }).limit(10).toArray();
+        //while (await cursor.hasNext()) {
+        //    topTen.topTenArr.push(await cursor.next());
+        //}
+        console.log("api get topTen: " + JSON.stringify(topTen));
+        res.end(JSON.stringify(topTen));
+    });
 
 } finally {
     // Ensures that the client will close when you finish/error

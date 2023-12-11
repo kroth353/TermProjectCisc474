@@ -16,34 +16,6 @@ app.listen(port, () => {
 console.log(`Server running on port ${port}...`)
 });
 
-/*
-// firebase
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDEOf5GZvI9lOV3LDNqFf6KIfM1hkARmvk",
-  authDomain: "memory-431d8.firebaseapp.com",
-  databaseURL: "https://memory-431d8-default-rtdb.firebaseio.com",
-  projectId: "memory-431d8",
-  storageBucket: "memory-431d8.appspot.com",
-  messagingSenderId: "697270213175",
-  appId: "1:697270213175:web:26b5aaed20f11da6acfdb2",
-  measurementId: "G-24NNJMYG3Z"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-*/
-
-
 // mongoDB connection
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -109,11 +81,36 @@ async function authenticate(client, username, password) {
 // delete account
 
 app.delete('/api/v1/deleteUser', function(req, res){
-  const userID = req.query.userID;
+  const id = req.query.id;
   deleteUser(client, userID);
   res.end(userID);
 });
 
 async function deleteUser(client, userID) {
   const result = await client.db("cluster0").collection("users").deleteOne( {"__id": ObjectID(userID)} )
+}
+
+//send highscore
+
+app.postHighscore('/api/v1/highscore', async function(req, res) {
+  const id = req.query.id;
+  const score = req.query.score;
+  const game = req.query.game;
+  console.log("highscore{id:" + id + ",score" + score + ",game" + game + "}");
+  pushHighScore(id, score, game);
+  res.end(id);
+});
+
+app.highscore('/api/v1/checkHighscore', async function(req, res) {
+  if(id) {
+    const currentHighScore = await client.db("cluster0").collection(game).findOne( {"id": id}.score)
+    if (currenHighScore == null || score > currentHighScore) {
+      res.end('true');
+    }
+  }
+  res.end('false');
+});
+
+async function pushHighScore(id, score, game) {
+  const result = await client.db("cluster0").collection(game).insertOne( {"id": id, "score": score} );
 }
