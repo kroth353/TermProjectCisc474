@@ -1,6 +1,79 @@
 /* General */
 
 /* Home Page */
+.home-header {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 10vh;
+    color: #bf5a5d;
+}
+.home-footer {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 1.8vh;
+    color: #bf5a5d;
+}
+.home-subheader {
+    position: absolute;
+    top: 22%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 90%;
+    font-size: 2vh;
+    color: #bf5a5d;
+}
+.menu-card-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5vw;
+    color: #bf5a5d;
+}
+.item-card-menu {
+    margin: 5px;
+    position: relative;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+    transform: scale(1);
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    width: 15vw;
+    height: calc((15vw*7)/4.5);
+}
+.item-card-menu.flip {
+    transform: rotateY(180deg);
+    box-shadow: -5px 5px 5px rgba(0,0,0,.3);
+}
+.front-face-menu {
+    width: 100%;
+    height: 100%;
+    /*padding: 20px;*/
+    position: absolute;
+    border-radius: 7px;
+    background: #ffffff;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+}
+.front-face-img-menu {
+    width: 100%;
+    height: 100%;
+    border-radius: 7px;
+    opacity: 0.15;
+}
+.back-face-menu {
+    width: 100%;
+    height: 100%;
+    /*padding: 20px;*/
+    position: absolute;
+    border-radius: 7px;
+    background: #ffffff;
+    backface-visibility: hidden;
+}
 
 /* Info Page */
 
@@ -9,7 +82,87 @@
 /* Card Game */
 
 /* Settings 1 */
-
+.directions-header {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: 5vh;
+    color: #bf5a5d;
+}
+.directions-text {
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 90%;
+    font-size: 2vh;
+    color: #bf5a5d;
+    text-align: center;
+}
+.settings-text {
+    opacity: 90%;
+    font-size: 2vh;
+    color: #bf5a5d;
+    text-align: center;
+    padding: 0 10px 0 5px;
+}
+.mode-text {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 90%;
+    font-size: 2vh;
+    color: #bf5a5d;
+    text-align: center;
+    padding: 0 10px 0 5px;
+}
+.radio-div-mode {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.theme-text {
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    opacity: 90%;
+    font-size: 2vh;
+    color: #bf5a5d;
+    text-align: center;
+    padding: 0 10px 0 5px;
+}
+.radio-div-theme {
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.item-card-settings {
+    top: 15%;
+    margin: 5px;
+    position: relative;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+    transform: scale(1);
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    width: 10vw;
+    height: calc((10vw*7)/4.5);
+}
+.item-card-settings.flip {
+    transform: rotateY(180deg);
+    box-shadow: -5px 5px 5px rgba(0,0,0,.3);
+}
 /* Copy Game */
 
 /* Settings 2 */

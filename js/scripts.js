@@ -10,15 +10,8 @@ var topTen = new Array();
 async function renderPage(page) {
     let htmlStr = "";
     if(page == "game1settings") {
+        /*
         htmlStr = `
-        <div class="heading">
-            <header>
-                <h1 class="title">Game Library</h1>
-                    <p>
-                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                    </p>
-            </header>
-        </div>
         <div class="row">
             <div class="leftcolumn">
                 <div class="clearbox"></div>
@@ -26,17 +19,17 @@ async function renderPage(page) {
             <div class="middlecolumn">
                 <div class="box">
                     <h1>Matching</h1>
-                    <h2>Game mode</h2>  
+                    <h2>Game mode</h2>
                     <p>
                         Pick a game mode below. Arcade mode tests how many matches you can make<br>
                         in SET AMOUNT OF TIME. Casual mode allows you to take your time and work <br>
-                        your way through the grid sizes. 
-                    </p>  
+                        your way through the grid sizes.
+                    </p>
                     <div class="container">
-                        <input type="radio" name="gameModeSelector">
+                        <input type="radio" name="gameModeSelector" value="Casual" checked="true">
                             <label>Casual</label>
-                        <input type="radio" name="gameModeSelector">
-                            <label>Arcade</label>    
+                        <input type="radio" name="gameModeSelector" value="Arcade">
+                            <label>Arcade</label>
                     </div>
                     <h2>Level Select</h2>
                     <p>
@@ -44,12 +37,12 @@ async function renderPage(page) {
                         The level will be the number of matches in the grid.
                     </p>
                     <div class="container">
-                        <input type="radio" name="LevelSelector">
+                        <input type="radio" name="LevelSelector" value="5">
                         <label>5</label>
-                        <input type="radio" name="LevelSelector">
+                        <input type="radio" name="LevelSelector" value="10" checked="true">
                         <label>10</label>
-                        <input type="radio" name="LevelSelector">
-                        <label>20</label>
+                        <input type="radio" name="LevelSelector" value="15">
+                        <label>15</label>
                     </div>
                     <h2>Theme Select</h2>
                     <p>
@@ -57,11 +50,11 @@ async function renderPage(page) {
                         The theme will determine what images will be displayed on the cards.
                     </p>
                     <div class="container">
-                        <input type="radio" name="themeSelector">
+                        <input type="radio" name="ThemeSelector" value="1"  checked="true">
                         <label>Animals</label>
-                        <input type="radio" name="themeSelector">
+                        <input type="radio" name="ThemeSelector" value="2">
                         <label>Numbers</label>
-                        <input type="radio" name="themeSelector">
+                        <input type="radio" name="ThemeSelector" value="3">
                         <label>Colors</label>
                     </div>
                     <h2>Directions</h2>
@@ -79,19 +72,53 @@ async function renderPage(page) {
         <nav>
             <div class="black-box">
                 <button onclick="renderPage('home')" class="option">Home</a> <br>
-                <button onclick="renderPage('game1')" class="option">Play</a> <br>
+                <button onclick="startGame(false)" class="option">Play</a> <br>
             </div>
         </nav>`;
+        */
+       htmlStr = `
+        <h1 class='directions-header'>Match</h2>
+        <p class='directions-text'>Flip over cards that match to gain points!</p>
+        <p class='mode-text'>Pick a game mode:</p>
+        <div class='radio-div-mode'>
+            <input type="radio" name="gameModeSelector" value="Survive" checked="true">
+            <label class='settings-text'>Survive</label>
+            <input type="radio" name="gameModeSelector" value="Timed">
+            <label class='settings-text'>Timed</label>
+        </div>
+        <p class='theme-text'>Pick a theme for your game:</p>
+        <div class='radio-div-theme'>
+            <input type="radio" name="ThemeSelector" value="1">
+            <label class='settings-text'>Animals</label>
+            <input type="radio" name="ThemeSelector" value="2">
+            <label class='settings-text'>Numbers</label>
+            <input type="radio" name="ThemeSelector" value="3">
+            <label class='settings-text'>Colors</label>
+        </div>
+        <div id='card-easy' class='item-card-settings' onclick="flipMenuCard('card-easy')">
+            <div class='front-face-menu' onclick="startGame('easy', 'false')">
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <p class="menu-card-text">Easy</p>
+            </div>
+            <img class='back-face-menu' src='images/cardBack.svg'>
+        </div>
+        <div id='card-medium' class='item-card-settings' onclick="flipMenuCard('card-medium')">
+            <div class='front-face-menu' onclick="startGame('medium', 'false')">
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <p class="menu-card-text">Medium</p>
+            </div>
+            <img class='back-face-menu' src='images/cardBack.svg'>
+        </div>
+        <div id='card-hard' class='item-card-settings' onclick="flipMenuCard('card-hard')">
+            <div class='front-face-menu' onclick="startGame('hard', 'false')">
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <p class="menu-card-text">Hard</p>
+            </div>
+            <img class='back-face-menu' src='images/cardBack.svg'>
+        </div>
+       `;
     } else if (page == "game2settings") {
         htmlStr = `
-        <div class="heading">
-            <header>
-                <h1 class="title">Game Library</h1>
-                    <p>
-                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                    </p>
-            </header>
-        </div>
         <div class="row">
             <div class="leftcolumn">
                 <div class="clearbox"></div>
@@ -152,36 +179,47 @@ async function renderPage(page) {
         `;
     } else if (page == "game1") {
         htmlStr = `
-        <div class="heading">
-            <header>
-                <h1 class="title">Game Library</h1>
-                    <p>
-                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                    </p>
-            </header>
-        </div>
-        <div class="content">
-            <button id="start-button" class="option" onclick="startGame()">Start Game</button>
-        </div>
         <div class='header-box'>
             <div id='lives'></div>
             <div id='score'></div>
+            <div id='timer'></div>
         </div>
         <section id="memory-game" class="memory-game"></section>
         <div id="game1-leaderboard" class="leaderboard">
         `;
-        const result = await getTopTen("game1");
-        console.log("topTen in render: " + topTen);
-        for(let i=0; i<topTen.length; i++) {
-            console.log("topTen[" + i + "]: " + topTen[i]);
-            let val = JSON.parse(topTen[i]);
-            let username = val["username"];
-            let score = val["score"];
-            htmlStr += `
-            <div id="leaderboard-item${i+1}" class="leaderboard-item"><p>${username}</p><p>${score}</p></div>
-            `;
+        var ele = document.getElementsByName('LevelSelector');
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].checked) {
+                matches = ele[i].value;
+            }
         }
-        htmlStr += "</div>";
+        var ele = document.getElementsByName('ThemeSelector');
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].checked) {
+                imgOption = ele[i].value;
+            }
+        }
+        var ele = document.getElementsByName('gameModeSelector');
+        for (i = 0; i < ele.length; i++) {
+            if (ele[i].checked) {
+                mode = ele[i].value;
+            }
+        }
+        game = "game1-" + imgOption + "-" + matches + "-" + mode;
+        const result = await getTopTen(game);
+        console.log("topTen in render: " + topTen);
+        if(topTen != "") {
+            for(let i=0; i<topTen.length; i++) {
+                console.log("topTen[" + i + "]: " + topTen[i]);
+                let val = JSON.parse(topTen[i]);
+                let username = val["username"];
+                let score = val["score"];
+                htmlStr += `
+                <div id="leaderboard-item${i+1}" class="leaderboard-item"><p>${username}</p><p>${score}</p></div>
+                `;
+            }
+            htmlStr += "</div>";
+        }
     } else if (page == "game2") {
         htmlStr = `
         <div class="heading">
@@ -227,6 +265,7 @@ async function renderPage(page) {
         </div>
         `;
     } else if (page == "home") {
+        /*
         htmlStr = `
         <div class="heading">
             <header>
@@ -246,7 +285,50 @@ async function renderPage(page) {
                 </div>
             </div>
         </nav>
+        */
+        htmlStr = `
+        <h1 class='home-header'>MindMatch</h1>
+        <p class='home-subheader'>a match for your mind</p>
+        <div id='card-login' class='item-card-menu' onclick="flipMenuCard('card-login')">
+            <div class='front-face-menu' onclick="renderPage('login')">
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <p class="menu-card-text">Login</p>
+            </div>
+            <img class='back-face-menu' src='images/cardBack.svg'>
+        </div>
+        <div id='card-game1' class='item-card-menu' onclick="flipMenuCard('card-game1')">
+            <div class='front-face-menu' onclick="renderPage('game1settings')">
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <p class="menu-card-text">Match</p>
+            </div>
+            <img class='back-face-menu' src='images/cardBack.svg'>
+        </div>
+        <div id='card-game2' class='item-card-menu' onclick="flipMenuCard('card-game2')">
+            <div class='front-face-menu' onclick="renderPage('game2settings')">
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <p class="menu-card-text">Lights</p>
+            </div>
+            <img class='back-face-menu' src='images/cardBack.svg'>
+        </div>
+        <div id='card-settings' class='item-card-menu' onclick="flipMenuCard('card-settings')">
+            <div class='front-face-menu' onclick="renderPage('homesettings')">
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <p class="menu-card-text">Settings</p>
+            </div>
+            <img class='back-face-menu' src='images/cardBack.svg'>
+        </div>
+        <p class='home-footer'>Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda</p>
         `;
+        /*
+        document.body.innerHTML = htmlStr;
+        document.querySelectorAll('.item-card-menu').forEach(c => {
+            c.addEventListener('mouseenter', (event) => {this.classList.toggle('flip');});
+        });
+        
+        document.querySelectorAll('.item-card-menu').forEach(c => {
+            c.addEventListener('mouseleave', (event) => {this.classList.toggle('flip');});
+        });
+        */
     } else if (page == "login") {
         htmlStr = `
         <div class="heading">
@@ -335,6 +417,7 @@ function signup() {
             const unquoted = resultStr.replace(/\"/g, "");
             url.searchParams.set("id", unquoted);
             history.pushState({}, "", url)
+            renderPage("home");
         }
     });
 }
@@ -350,6 +433,7 @@ function login() {
             const unquoted = resultStr.replace(/\"/g, "");
             url.searchParams.set("id", unquoted);
             history.pushState({}, "", url)
+            renderPage("home");
         }
     });
 }
@@ -409,31 +493,63 @@ function validateLoginForm() {
 
 // Code for Dark Mode functionality
 document.addEventListener('DOMContentLoaded', function () {
-    var selectedTheme = sessionStorage.getItem('selectedTheme') || 'light';
-    applyTheme(selectedTheme);
-
+    //var selectedTheme = sessionStorage.getItem('selectedTheme') || 'light';
+    //applyTheme(selectedTheme);
+    darkMode();
     var radioButtons = document.querySelectorAll('input[name="theme"]');
     radioButtons.forEach(function (radioButton) {
         radioButton.addEventListener('click', function () {
-            sessionStorage.setItem('selectedTheme', this.value);
-            applyTheme(this.value);
+            //sessionStorage.setItem('selectedTheme', this.value);
+            //applyTheme(this.value);
+            darkMode();
         });
     });
-
+    /*
     var selectedRadioButton = document.querySelector('input[name="theme"][value="' + selectedTheme + '"]');
     if (selectedRadioButton) {
         selectedRadioButton.checked = true;
     }
+    */
 });
 
 function darkMode() {
+    var selectedTheme = 'light';
+    if(document.querySelector('input[name="theme"]:checked')) {
+        selectedTheme = document.querySelector('input[name="theme"]:checked').value;
+    } else {
+        if(window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            localStorage.setItem('selectedTheme', 'dark');
+            selectedTheme = 'loadInDark';
+        } else {
+            localStorage.setItem('selectedTheme', 'light');
+            selectedTheme = 'loadInLight';
+        }
+    }
+    var element = document.body;   
+    element.classList.toggle("dark");
+
+    if (selectedTheme === 'dark') {
+        element.classList.add('dark');
+        element.style.transition = "background-color 0.5s, color 0.5s";
+        element.style.animation = "darkModeFadeIn 0.5s";
+    } else if (selectedTheme === 'light') {
+        element.classList.remove('dark');
+        element.style.transition = "background-color 0.5s, color 0.5s";
+        element.style.animation = "darkModeFadeIn 0.5s reverse";
+    } else if (selectedTheme === 'loadInDark') {
+        element.classList.add('dark');
+    } else if (selectedTheme === 'loadInLight') {
+        element.classList.remove('dark');
+    }
+}
+
+/*
+function darkMode() {
     var selectedTheme = document.querySelector('input[name="theme"]:checked').value;
-    var element = document.body;
-
     localStorage.setItem('selectedTheme', selectedTheme);
-
     applyTheme(selectedTheme);
 }
+
 
 function applyTheme(selectedTheme) {
     var element = document.body;
@@ -449,6 +565,7 @@ function applyTheme(selectedTheme) {
         element.classList.remove('dark');
     }
 }
+*/
 // Code for Tab Switching 
 function openPrompt(evt, status) {
     var i, userTab, tabLinks;
@@ -465,4 +582,13 @@ function openPrompt(evt, status) {
 
     document.getElementById(status).style.display = "block";
     evt.currentTarget.className += " active";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderPage('home');
+});
+
+//flip menu card
+async function flipMenuCard(id) {
+    document.getElementById(id).classList.toggle('flip');
 }

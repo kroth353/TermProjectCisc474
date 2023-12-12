@@ -1,7 +1,16 @@
+/*
 function darkMode() {
-    var selectedTheme = document.querySelector('input[name="theme"]:checked').value;
-    var element = document.body;
-
+    var selectedTheme = 'light';
+    if(document.querySelector('input[name="theme"]:checked').value) {
+        selectedTheme = document.querySelector('input[name="theme"]:checked').value;
+    } else {
+        if(window.matchMedia('(prefers-color-scheme: dark)')) {
+            console.log("your browser prefers dark mode");
+            localStorage.setItem('selectedTheme', 'dark');
+            selectedTheme = 'dark';
+        }
+    }
+    var element = document.body;   
     element.classList.toggle("dark");
 
     if (selectedTheme === 'dark') {
@@ -14,3 +23,4 @@ function darkMode() {
         element.style.animation = "darkModeFadeIn 0.5s reverse";
     }
 }
+*/

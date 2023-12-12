@@ -5,7 +5,8 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0; /* Remove default body margin */
-  background-color: #f0f0f0; /* Background color for the entire page */
+  background-color: #f6f4e6; /* Background color for the entire page */
+  font-family: 'Playfair Display';font-size: 22px;
 }
 
 /* Style for the black box outline */
