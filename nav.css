@@ -5,6 +5,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0; /* Remove default body margin */
+  color: #bf5a5d;
   background-color: #f6f4e6; /* Background color for the entire page */
   font-family: 'Playfair Display';font-size: 22px;
 }
@@ -46,7 +47,7 @@ body {
   margin: 10px auto; /* Center the options horizontally and add space between them vertically */
   text-decoration: none; /* Remove underlines */
   font-weight: bold; /* Make the text bold */
-  background-color: #007bff; /* Button background color */
+  background-color: #bf5a5d; /* Button background color */
   color: #fff; /* Button text color */
   border: none;
   border-radius: 5px; /* Rounded corners for the buttons */
@@ -56,18 +57,13 @@ body {
 
 /* Style for the options (buttons) when hovered */
 .option:hover {
-  background-color: #0056b3; /* Hover background color */
+  background-color: #833b3d; /* Hover background color */
 }
 
 /* Style for Dark Mode */
 
 .dark {
   background-color: #111111;
-  color: white;
-}
-
-.dark .option {
-  background-color: #ff0007; /* Button background color */
 }
 
 .dark .black-box {
@@ -81,9 +77,7 @@ body {
 }
 
 .dark .tabs {
-  overflow: hidden;
   /*border: 1px solid #ccc;*/ 
-  background-color: #1f1f1f;
 }
 
 .dark .tabs button {
@@ -118,6 +112,12 @@ body {
 
 .dark-toggle {
   position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .dark-toggle input {
@@ -137,7 +137,6 @@ body {
 .tabs {
   overflow: hidden;
   /*border: 1px solid #ccc;*/ 
-  background-color: #f1f1f1;
 }
 
 /* Style the buttons that are used to open the tab content */
@@ -185,4 +184,16 @@ body {
 
 .userInfo::placeholder {
   color: #000;
+}
+
+.card {
+  float: left;
+  justify-content: space-between;
+  margin-right: 2%;
+}
+
+.form {
+  float: right;
+  justify-content: space-between;
+  margin-left: 2%;
 }

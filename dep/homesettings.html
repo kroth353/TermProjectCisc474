@@ -4,11 +4,13 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" type="text/css" href="../nav.css">
+        <link rel="stylesheet" type="text/css" href="../styles.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script defer src="../js/scripts.js"></script>
         <title>Home Page Settings</title>
     </head>
     <body>
+        <!--
         <div class="heading">
             <header>
                 <h1 class="title">Game Library</h1>
@@ -18,21 +20,65 @@
             </header>
         </div>
         <div class="content">
-            <div class="black-box">
-                <button onclick="renderPage('home')" class="option">Home</button><br>
-                <h2>Appearance</h2>
-                <div class="dark-toggle">
-                    <label class="radio-label">
-                        <input type="radio" name="theme" onclick="darkMode()" value="light">
-                        <span class="radio-button"></span> Light
-                    </label><br>
-                    <label class="radio-label">
-                        <input type="radio" name="theme" onclick="darkMode()" value="dark">
-                        <span class="radio-button"></span> Dark
-                    </label>
+            <button onclick="renderPage('home')" class="option">Home</button><br>
+            <h2>Appearance</h2>
+            <div class="dark-toggle">
+                <label class="radio-label">
+                    <input type="radio" name="theme" onclick="darkMode()" value="light">
+                    <span class="radio-button"></span> Light
+                </label><br>
+                <label class="radio-label">
+                    <input type="radio" name="theme" onclick="darkMode()" value="dark">
+                    <span class="radio-button"></span> Dark
+                </label>
+            </div>
+        </div>
+
+        <h1 class='home-header'>MindMatch</h1>
+        <p class='home-subheader'>a match for your mind</p>
+        <div class="content">
+            <h2>Appearance</h2>
+            <div class="dark-toggle">
+                <div id='card-toggle' class='item-card-settings' onclick="flipMenuCard('card-toggle')">
+                    <div class='front-face-menu' onclick="darkMode()" value="dark">
+                        <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                        <p class="menu-card-text" style='font-size: 24px'>Toggle Light/Dark Mode</p>
+                    </div>
+                    <img class='back-face-menu' style='position: relative' src='images/cardBack.svg'>
+                </div>
+                <div id='card-home' class='item-card-settings' onclick="flipMenuCard('card-home')">
+                    <div class='front-face-menu' onclick="renderPage('home')">
+                        <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                        <p class="menu-card-text">Home</p>
+                    </div>
+                    <img class='back-face-menu' style='position: relative' src='images/cardBack.svg'>
                 </div>
             </div>
         </div>
+        <p class='home-footer'>Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda</p>
+    -->
+    <h1 class='home-header'>MindMatch</h1>
+    <p class='home-subheader'>a match for your mind</p>
+    <div class="content">
+        <h2>Appearance</h2>
+        <div class="dark-toggle">
+            <div id='card-toggle' class='item-card-settings' onclick="flipMenuCard('card-toggle')">
+                <div class='front-face-menu' onclick="darkMode()" value="dark">
+                    <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                    <p class="menu-card-text" style='font-size: 24px'>Toggle Light/Dark Mode</p>
+                </div>
+                <img class='back-face-menu' style='position: relative' src='images/cardBack.svg'>
+            </div>
+            <div id='card-home' class='item-card-settings' onclick="flipMenuCard('card-home')">
+                <div class='front-face-menu' onclick="renderPage('home')">
+                    <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                    <p class="menu-card-text">Home</p>
+                </div>
+                <img class='back-face-menu' style='position: relative' src='images/cardBack.svg'>
+            </div>
+        </div>
+    </div>
+    <p class='home-footer'>Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda</p>
         <script>
             $(document).ready(function(){
                 console.log("page ready");

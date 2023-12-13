@@ -239,31 +239,41 @@ async function renderPage(page) {
         `;
     } else if (page == "homesettings") {
         htmlStr = `
-        <div class="heading">
-            <header>
-                <h1 class="title">Game Library</h1>
-                    <p>
-                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                    </p>
-            </header>
-        </div>
+        <h1 class='home-header'>MindMatch</h1>
+        <p class='home-subheader'>a match for your mind</p>
         <div class="content">
-            <div class="black-box">
-                <button onclick="renderPage('home')" class="option">Home</button><br>
-                <h2>Appearance</h2>
-                <div class="dark-toggle">
-                    <label class="radio-label">
-                        <input type="radio" name="theme" onclick="darkMode()" value="light">
-                        <span class="radio-button"></span> Light
-                    </label><br>
-                    <label class="radio-label">
-                        <input type="radio" name="theme" onclick="darkMode()" value="dark">
-                        <span class="radio-button"></span> Dark
-                    </label>
+            <h2>Appearance</h2>
+            <div class="dark-toggle">
+                <div id='card-toggle' class='item-card-settings' onclick="flipMenuCard('card-toggle')">
+                    <div class='front-face-menu' onclick="darkMode()" value="dark">
+                        <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                        <p class="menu-card-text" style='font-size: 24px'>Toggle Light/Dark Mode</p>
+                    </div>
+                    <img class='back-face-menu' style='position: relative' src='images/cardBack.svg'>
+                </div>
+                <div id='card-home' class='item-card-settings' onclick="flipMenuCard('card-home')">
+                    <div class='front-face-menu' onclick="renderPage('home')">
+                        <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                        <p class="menu-card-text">Home</p>
+                    </div>
+                    <img class='back-face-menu' style='position: relative' src='images/cardBack.svg'>
                 </div>
             </div>
         </div>
+        <p class='home-footer'>Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda</p>
         `;
+        /*
+        </div>
+                <label class="radio-label">
+                    <input type="radio" name="theme" onclick="darkMode()" value="light">
+                    <span class="radio-button"></span> Light
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="theme" onclick="darkMode()" value="dark">
+                    <span class="radio-button"></span> Dark
+                </label>
+            </div><br>
+        */
     } else if (page == "home") {
         /*
         htmlStr = `
@@ -331,22 +341,27 @@ async function renderPage(page) {
         */
     } else if (page == "login") {
         htmlStr = `
-        <div class="heading">
-            <header>
-                <h1 class="title">Game Library</h1>
-                    <p>
-                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                    </p>
-            </header>
-        </div>
+        <h1 class='home-header'>MindMatch</h1>
+        <p class='home-subheader'>a match for your mind</p>
         <div class="content">
-            <div class="black-box">
-                <div class="tabs">
-                    <button class="tabLinks" onClick="openPrompt(event, 'loginForm')" id="default">Log In</button>
-                    <button class="tabLinks" onClick="openPrompt(event, 'signupForm')">Sign Up</button>
+            <div class="dark-toggle">
+                <div id='card-signup' class='item-card-settings' onclick="flipMenuCard('card-signup')">
+                    <div class='front-face-menu' onClick="openPrompt(event, 'signupForm')">
+                        <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                        <p class="menu-card-text">Sign Up</p>
+                    </div>
+                    <img class='back-face-menu' style='position: relative' src='images/cardBack.svg'>
                 </div>
-    
-                <div id="loginForm" class="userTab">
+
+                <div id='card-login' class='item-card-settings' onclick="flipMenuCard('card-login')">
+                    <div class='front-face-menu' onClick="openPrompt(event, 'loginForm')">
+                        <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                        <p class="menu-card-text">Log In</p>
+                    </div>
+                    <img class='back-face-menu' style='position: relative' src='images/cardBack.svg'>
+                </div>
+
+                <div id="loginForm" class="userTab" style="float:right; padding-left:50px">
                     <h1>Log In</h1>
                     <form name="loginForm" onsubmit="return false;">
                         <div>
@@ -358,8 +373,7 @@ async function renderPage(page) {
                     <p id="loginFormError"></p>
                     <button class="option" onClick="login()">Log in</button>
                 </div>
-    
-                <div id="signupForm" class="userTab">
+                <div id="signupForm" class="userTab" style="float:right; padding-left:50px">
                     <h1>Sign Up</h1>
                     <form name="signupForm" onsubmit="return false;">
                         <div>
@@ -375,9 +389,11 @@ async function renderPage(page) {
                     <p id="signupFormError"></p>
                     <button id="signup" class="option" onclick="signup()">Sign Up</button>
                 </div>
-                <button onclick="renderPage('home')" class="option">Home</button><br>
             </div>
+            
+            <button onclick="renderPage('home')" class="option">Home</button><br>
         </div>
+        <p class='home-footer'>Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda</p>
         `;
     }
     document.body.innerHTML = htmlStr;
@@ -492,24 +508,15 @@ function validateLoginForm() {
 */
 
 // Code for Dark Mode functionality
+/*
 document.addEventListener('DOMContentLoaded', function () {
-    //var selectedTheme = sessionStorage.getItem('selectedTheme') || 'light';
-    //applyTheme(selectedTheme);
     darkMode();
     var radioButtons = document.querySelectorAll('input[name="theme"]');
     radioButtons.forEach(function (radioButton) {
         radioButton.addEventListener('click', function () {
-            //sessionStorage.setItem('selectedTheme', this.value);
-            //applyTheme(this.value);
             darkMode();
         });
     });
-    /*
-    var selectedRadioButton = document.querySelector('input[name="theme"][value="' + selectedTheme + '"]');
-    if (selectedRadioButton) {
-        selectedRadioButton.checked = true;
-    }
-    */
 });
 
 function darkMode() {
@@ -542,41 +549,45 @@ function darkMode() {
         element.classList.remove('dark');
     }
 }
+*/
 
-/*
-function darkMode() {
-    var selectedTheme = document.querySelector('input[name="theme"]:checked').value;
-    localStorage.setItem('selectedTheme', selectedTheme);
-    applyTheme(selectedTheme);
-}
+document.addEventListener('DOMContentLoaded', function () {
+    // Example card click handler
+    var card = document.getElementById('card-toggle');
+    card.addEventListener('click', function () {
+        darkMode('dark');
+    });
+});
 
-
-function applyTheme(selectedTheme) {
+function darkMode(selectedTheme) {
+    // Rest of the darkMode function remains the same
     var element = document.body;
-    var transitionProperties = "background-color 0.5s, color 0.5s";
-    var animation = selectedTheme === 'dark' ? "darkModeFadeIn 0.5s" : "darkModeFadeIn 0.5s reverse";
-
-    element.style.transition = transitionProperties;
-    element.style.animation = animation;
+    element.classList.toggle("dark");
 
     if (selectedTheme === 'dark') {
         element.classList.add('dark');
-    } else {
+        element.style.transition = "background-color 0.5s, color 0.5s";
+        element.style.animation = "darkModeFadeIn 0.5s";
+    } else if (selectedTheme === 'light') {
+        element.classList.remove('dark');
+        element.style.transition = "background-color 0.5s, color 0.5s";
+        element.style.animation = "darkModeFadeIn 0.5s reverse";
+    } else if (selectedTheme === 'loadInDark') {
+        element.classList.add('dark');
+    } else if (selectedTheme === 'loadInLight') {
         element.classList.remove('dark');
     }
 }
-*/
+
 // Code for Tab Switching 
 function openPrompt(evt, status) {
-    var i, userTab, tabLinks;
-
-    userTab = document.getElementsByClassName("userTab");
-    for (i = 0; i < userTab.length; i++) {
+    var userTab = document.getElementsByClassName("userTab");
+    for (var i = 0; i < userTab.length; i++) {
         userTab[i].style.display = "none";
     }
 
-    tabLinks = document.getElementsByClassName("tabLinks");
-    for (i = 0; i < tabLinks.length; i++) {
+    var tabLinks = document.getElementsByClassName("tabLinks");
+    for (var i = 0; i < tabLinks.length; i++) {
         tabLinks[i].className = tabLinks[i].className.replace(" active", "");
     }
 
