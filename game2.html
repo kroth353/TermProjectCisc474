@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" type="text/css" href="nav.css">
-    <title>Game 2</title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="game2.css">
+        <script src="js/game2.js"></script>
+        <title>Game 2</title>
+    </head>
+    <body>
+        <div class="row">
+            <div class="leftcolumn">
+                <div class="clearbox"></div>
+            </div>
+            <div class="middlecolumn">
+                <div class="box">
+                    <h1>Memory Game</h1>
+                    <!-- Game 2 Grid -->
+                    <div id="game2Grid" class="gameGrid">
 
-<footer>
-    <nav>
-        <div class="black-box">
-            <a href = "index.html" class="option">Home</a> <br>
-            <a href = "game2settings.html" class="option">Game 2 Settings</a> <br>
+                    </div>
+                    <button id="startGame" onclick="memoryGame()">Start Game</button>
+                    <a href="index.html">Home</a>
+                    <a href="game2settings.html">Game 2 Settings</a>
+                    <p id="gameValues">Values: 2 easy #1c87c9</p>
+                    <script>
+                        setValues();
+                        makeSequence(10);
+                        pulseSequence();
+                        //updateHTMLGameGrid();
+                        /*
+                        setTimeout(() => updateCell(0),0);
+                        setTimeout(() => updateCell(1),1000);
+                        setTimeout(() => updateCell(0),2000);
+                        */
+                    </script>
+                </div>
+            </div>
+            <div class="rightcolumn">
+                <div class="clearbox"></div>
+            </div>
         </div>
-    </nav>
-</footer>
+    </body>
+</html>

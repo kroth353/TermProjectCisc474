@@ -1,0 +1,116 @@
+/* Settings 2 */
+
+body {
+    /*display: flex;
+    justify-content: center;*/
+    /* align-items: center; */
+    height: 100vh; /* This ensures the container takes up the full viewport height */
+    margin: 0; /* Remove default body margin */
+    background-color: #f0f0f0; /* Background color for the entire page */
+}
+
+a,button {
+    display: block;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    margin-top: 20px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    font: inherit;
+}
+
+.leftcolumn {   
+    float: left;
+    width: 25%;
+    /*padding-right: 20px;*/
+}
+
+.middlecolumn {
+    float: left;
+    width: 50%;
+    height: 100%;
+    background-color: #f1f1f1;
+}
+
+.rightcolumn {
+    float: left;
+    width: 25%;
+    /*padding-left: 20px;*/
+}
+
+.box {
+    text-align: center;
+    background-color: white;
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.clearbox {
+    background-color: none;
+    padding: 20px;
+    height: fit-content;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.row::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.center {
+    display: block;
+    text-align: center;
+}
+
+.gameGrid {
+    display: grid;
+    gap: 5px;
+    padding-top: 100%;
+    margin: auto;
+    padding: auto;
+    border: none;
+}
+
+/*
+.gameCell {
+    position: relative;
+    margin: 0px;
+    border: none;
+    animation-name: pulse;
+    --startColor: none;
+    --pulseColor: none;
+} 
+/*
+.easyPulse {
+    animation-duration: 1s;
+}
+@keyframes pulse {
+    from { background-color: var(--startColor); }
+    to { background-color: var(--pulseColor); }
+}
+*/
+
+/* Responsive layout - when the screen is less than 800px wide, make the three 
+columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 800px) {
+    .leftcolumn, .middlecolumn, .rightcolumn {
+        width: 100%;
+        padding: 0;
+    }
+    .box, .clearbox {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+}
+/**/
+
+/* Copy Game */
