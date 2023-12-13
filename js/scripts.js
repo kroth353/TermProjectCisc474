@@ -5,8 +5,11 @@ function dimslider() {
     output.innerHTML = this.value;
 }
 
+// used in getTopTen
 var topTen = new Array();
 
+/* This is how we render different pages of our website. Based on the page parameter different portions of the website
+will be rendered. htmlStr has the html code for each individual page that can be rendered. */
 async function renderPage(page) {
     let htmlStr = `
     <div class='home-button-div' onclick="renderPage('home')">
@@ -283,6 +286,10 @@ async function renderPage(page) {
     document.body.innerHTML = htmlStr;
 }
 
+/* This code is how we fetch the top ten leaderboard positions. It works by getting the parameter 'id' before 
+making a GET request to the leaderboard of the specified game (1 or 2) and creating an array of the top
+ten.
+*/
 const getTopTen = (game) => new Promise((resolve) => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -306,6 +313,8 @@ const getTopTen = (game) => new Promise((resolve) => {
     resolve('success');
 });
 
+/* This is our signup function which works by making a POST request to an API with the username, password, and email provided by the user.
+Once successful it displays a message before updating the URL with 'id' and updating the browser. */
 function signup() {
     $.ajax({
         url: `/api/v1/addUser?username=${document.getElementById("signup_username").value}&email=${document.getElementById("signup_email").value}&password=${document.getElementById("signup_password").value}`,
@@ -322,6 +331,8 @@ function signup() {
     });
 }
 
+/* This is our login function which works by making a GET request to an API with the username and password provided by the user.
+Once successful it displays a message before updating the URL with 'id' and updating the browser. */
 function login() {
     $.ajax({
         url: `/api/v1/login?username=${document.getElementById("login_username").value}&password=${document.getElementById("login_password").value}`,
@@ -338,58 +349,6 @@ function login() {
     });
 }
 
-/*
-function validateSignupForm() {
-    var passed = false;
-    let user_fname = document.getElementById("signup_fname").value;
-    let user_lname = document.getElementById("signup_lname").value;
-    let user_email = document.getElementById("signup_email").value;
-    let user_phone = document.getElementById("signup_phone").value;
-    let user_password = document.getElementById("signup_password").value;
-    let user_password_con = document.getElementById("signup_password_con").value;
-    var phoneRegex = /^([0-9]{3})-([0-9]{3})-([0-9]{4})$/;
-    var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    var errorMessage = "";
-    if (user_fname == "") {
-        errorMessage = "Please enter your first name";
-    } else if (user_lname == "") {
-        errorMessage = "Please enter your last name";
-    } else if (user_email == "") {
-        errorMessage = "Please enter your email";
-    } else if (user_phone == "") {
-        errorMessage = "Please enter your phone";
-    } else if (!(phoneRegex.test(user_phone))) {
-        errorMessage = "Invalid phone number";
-    } else if (!(emailRegex.test(user_email))) {
-        errorMessage = "Invalid email";
-    } else if (!(user_password == user_password_con)) {
-        errorMessage = "Passwords do not match";
-    } else {
-        passed = true;
-    }
-    setSignupError(errorMessage);
-    console.log("passed " + passed);
-    return passed;
-}
-
-function validateLoginForm() {
-    var passed = false;
-    let user_email = document.getElementById("login-email").value;
-    let user_password = document.getElementById("login-password").value;
-    var emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    var errorMessage = "";
-    if (user_email == "") {
-        errorMessage = "Please enter your email";
-    } else if(!(emailRegex.test(user_email))) {
-        errorMessage = "Invalid email";
-    } else {
-        passed = true;
-    }
-    setLoginError(errorMessage);
-    console.log("passed " + passed);
-    return passed;
-}
-*/
 
 // Code for Dark Mode functionality
 document.addEventListener('DOMContentLoaded', function () {
@@ -402,6 +361,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+/* This is our darkMode function which allows the user to swith between light and dark mode on our website. It works by
+first checking if a mode is selected, if a mode is selected then the website will switch the color scheme to that of the selected mode. 
+If not it checks what mode the user prefers by querying the browser and will then set the mode to light or dark based on the preference. 
+The last portion of the function is simple style adjustment based on the mode selected.*/
 function darkMode() {
     var selectedTheme = 'light';
     if(document.querySelector('input[name="theme"]:checked')) {
@@ -433,7 +396,10 @@ function darkMode() {
     }
 }
 
-// Code for Tab Switching 
+
+/* This function is used for tab switching between different content sections. It takes parameters evt (an event representing user interaction like a mouse click) and 
+status (an element id). It hides the elements containing class 'userTab' and removes 'active' from elements with class name 'tabLinks'. It will display elements
+based on the status parameter provided and adds class name 'active' back to tabs with the event provided to it. */
 function openPrompt(evt, status) {
     var i, userTab, tabLinks;
 
@@ -460,6 +426,9 @@ async function flipMenuCard(id) {
     document.getElementById(id).classList.toggle('flip');
 }
 
+
+/* This is our logout function which works by clearing the content of 'logout-button-div'
+and updating the URL by deleting 'id' from it via url.searchParams before updating the browser */
 function logout() {
     document.getElementById('logout-button-div').innerHTML = "";
     const url = new URL(window.location.href);
