@@ -1,4 +1,28 @@
 /* General */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.home-button-div {
+    position: absolute;
+    top: 4vh;
+    left: 3vh;
+    color: #bf5a5d;
+}
+.dark .home-button-div {
+    color: #f4ede1;
+}
+.logout-button-div {
+    position: absolute;
+    top: 4vh;
+    left: 8vh;
+    color: #bf5a5d;
+}
+
+.dark .logout-button-div {
+    color: #f4ede1;
+}
 
 /* Home Page */
 .home-header {
@@ -9,6 +33,9 @@
     font-size: 10vh;
     color: #bf5a5d;
 }
+.dark .home-header {
+    color: #f4ede1;
+}
 .home-footer {
     position: absolute;
     bottom: 10%;
@@ -16,6 +43,9 @@
     transform: translate(-50%, 0);
     font-size: 1.8vh;
     color: #bf5a5d;
+}
+.dark .home-footer {
+    color: #f4ede1;
 }
 .home-subheader {
     position: absolute;
@@ -25,6 +55,9 @@
     opacity: 90%;
     font-size: 2vh;
     color: #bf5a5d;
+}
+.dark .home-subheader {
+    color: #f4ede1;
 }
 .menu-card-text {
     position: absolute;
@@ -52,7 +85,6 @@
 .front-face-menu {
     width: 100%;
     height: 100%;
-    /*padding: 20px;*/
     position: absolute;
     border-radius: 7px;
     background: #ffffff;
@@ -68,7 +100,6 @@
 .back-face-menu {
     width: 100%;
     height: 100%;
-    /*padding: 20px;*/
     position: absolute;
     border-radius: 7px;
     background: #ffffff;
@@ -78,8 +109,331 @@
 /* Info Page */
 
 /* Login Page */
+.item-card-login {
+    margin: 5px;
+    position: relative;
+    box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+    transform: scale(1);
+    border-radius: 10px;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+    width: 20vw;
+    height: calc((20vw*7)/4.5);
+}
+.item-card-login.flip {
+    transform: rotateY(180deg);
+    box-shadow: -5px 5px 5px rgba(0,0,0,.3);
+}
+.front-face-login {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 7px;
+    background: #ffffff;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.front-face-login::-webkit-scrollbar {
+    display: none;
+}
+.card-form {
+    position: absolute;
+    top: 5%;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.card-login-header {
+    text-align: center;
+    color:#bf5a5d;
+    font-size: 3vh;
+    font-family: 'Andale Mono';
+    font-weight: 600;
+}
+.userInfo {
+    background-color:#f6f4e6;
+    padding: 0.5vw;
+    margin: 0.5vw 0 0.5vw 0;
+    border: none;
+    border-radius: 1vw;
+    box-shadow: inset 0px 0px 0.5vw #bf5a5d;
+    color: #bf5a5d;
+    font-family: 'Andale Mono';
+    width: 15vw;
+    height: 3vw;
+}
+.userInfo::placeholder {
+    color: #bf5a5d;
+  }
+.loginFormError {
+    color: #bf5a5d;
+    font-family: 'Andale Mono';
+    font-size: 1.5vh;
+}
+.card-form-content {
+    position: relative;
+    top: 1.5vh;
+    width: fit-content;
+}
+/*<button class="button-74" role="button">Button 74</button>*/
+.login-option {
+    position: relative;
+    width: 10vw;
+    height: 3vw;
+    background-color: #f4ede1;
+    border: 0.2vw solid #bf5a5d;
+    border-radius: 1vw;
+    box-shadow: #bf5a5d 0.2vw 0.2vw 0 0;
+    color: #bf5a5d;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 600;
+    font-size: 1vw;
+    padding: 0 1vw;
+    line-height: 1vw;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    font-family: 'Andale Mono';
+}
+.login-option:hover {
+  background-color: #bf5a5d;
+  color: #f4ede1;
+}
+.login-option:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
 
-/* Card Game */
+/* Game 1 */
+.lives-timer {
+    position: relative;
+    width: fit-content;
+    height: 5%;
+    left: 50%;
+    transform: translate(-50%);
+}
+.timer-text {
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    color: #bf5a5d;
+    font-family: 'Andale Mono';
+}
+.dark .timer-text {
+    color: #f4ede1;
+}
+.lives-box {
+    position: relative;
+    width: 8vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #bf5a5d;
+}
+.dark .lives-box {
+    color: #f4ede1;
+}
+.score {
+    position: absolute;
+    right: 7vw;
+}
+.score-text {
+    text-align: center;
+    position: relative;
+    color: #bf5a5d;
+    font-family: 'Andale Mono';
+}
+.dark .score-text {
+    color: #f4ede1;
+}
+.game-page-div {
+    position: relative;
+    top: 5%;
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+.memory-game {
+    position: relative;
+    width: 100%;
+    height: auto;
+    padding: 40px 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    perspective: 1000px;
+}
+.header-box {
+    position: absolute;
+    width: 20%;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.front-face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 7px;
+    background: #ffffff;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+}
+.back-face {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 7px;
+    background: #ffffff;
+    backface-visibility: hidden;
+}
+.container-header {
+    top: 0;
+    left: 0;
+    display: grid;
+    position: fixed;
+    grid-template-columns: 500px auto 200px 200px 200px;
+    grid-template-rows: 100px;
+    column-gap: 0;
+    row-gap: 0;
+    z-index: 2;
+    min-width: 100%;
+}
+.item-header {
+    background-color: #1c87c9;
+    grid-column-start: 1;
+    grid-column-end: 6;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    z-index: 2;
+    justify-self: stretch;
+    align-self: stretch;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+.item-card {
+    margin: 5px;
+    position: relative;
+    box-shadow: 1px 1px 1px rgba(0,0,0,.3);
+    transform: scale(1);
+    border-radius: 7px;
+    transform-style: preserve-3d;
+    transition: transform .5s;
+}
+.item-card:active {
+   transform: scale(0.97);
+   transition: transform .2s;
+}
+.item-card.flip {
+  transform: rotateY(180deg);
+  box-shadow: -1px 1px 1px rgba(0,0,0,.3);
+}
+.item-card.shake {
+    animation-name: tilt-n-move-shaking;
+    animation-duration: 2s;
+}
+.item-card.drop {
+    animation-name: drop-no-shaking;
+    animation-duration: 1s;
+}
+@keyframes tilt-n-move-shaking {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 100%; }
+    12.5% { transform: translate(5px, 5px) rotate(5deg); opacity: 100%; }
+    25% { transform: translate(0, 0) rotate(0eg); opacity: 100%; }
+    37.5% { transform: translate(-5px, 5px) rotate(-5deg); opacity: 100%; }
+    50% { transform: translate(0, 0) rotate(0deg); opacity: 100%; }
+    60% { transform: translate(0, 0) rotate(0deg); opacity: 100%; }
+    100% { transform: translate(0, 600%) rotate(0deg); opacity: 0%; }
+}
+@keyframes drop-no-shaking {
+    0% { transform: translate(0, 0) rotate(0deg); opacity: 100%; }
+    100% { transform: translate(0, 600%) rotate(0deg); opacity: 0%; }
+}
+.leaderboard {
+    position: relative;
+    top: 5vh;
+    left: 50%;
+    transform: translate(-50%);
+    width: 70vw;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: flex-start;
+    background-color: #f4ede1;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline-style: double;
+    outline-color: #bf5a5d;
+}
+.dark .leaderboard {
+    background-color: #b56b6d;
+    outline-color: #f4ede1;
+}
+.leaderboard-header-box {
+    height: 4vh;
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    outline-style: double;
+    outline-color: #bf5a5d;
+}
+.dark .leaderboard-header-box {
+    outline-color: #f4ede1;
+}
+.leaderboard-header {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #bf5a5d;
+    font-family: 'Andale Mono';
+}
+.dark .leaderboard-header {
+    color: #f4ede1;
+}
+.leaderboard-item {
+    height: 5vh;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4vw;
+    outline-style: double;
+    outline-color: #bf5a5d;
+}
+.dark .leaderboard-item {
+    outline-color: #f4ede1;
+}
+.leaderboard-text {
+    text-align: center;
+    color: #bf5a5d;
+    font-family: 'Andale Mono';
+}
+.dark .leaderboard-text {
+    color: #f4ede1;
+}
+
 
 /* Settings 1 */
 .directions-header {
@@ -89,6 +443,9 @@
     transform: translate(-50%, 0);
     font-size: 5vh;
     color: #bf5a5d;
+}
+.dark .directions-header {
+    color: #f4ede1;
 }
 .directions-text {
     position: absolute;
@@ -100,12 +457,18 @@
     color: #bf5a5d;
     text-align: center;
 }
+.dark .directions-text {
+    color: #f4ede1;
+}
 .settings-text {
     opacity: 90%;
     font-size: 2vh;
     color: #bf5a5d;
     text-align: center;
     padding: 0 10px 0 5px;
+}
+.dark .settings-text {
+    color: #f4ede1;
 }
 .mode-text {
     position: absolute;
@@ -117,6 +480,9 @@
     color: #bf5a5d;
     text-align: center;
     padding: 0 10px 0 5px;
+}
+.dark .mode-text {
+    color: #f4ede1;
 }
 .radio-div-mode {
     position: absolute;
@@ -137,6 +503,9 @@
     color: #bf5a5d;
     text-align: center;
     padding: 0 10px 0 5px;
+}
+.dark .theme-text {
+    color: #f4ede1;
 }
 .radio-div-theme {
     position: absolute;
@@ -218,4 +587,21 @@
     .box, .clearbox {
         margin-top: 0px;
     }
+}
+
+/* home settings */
+.radio-div-dark {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.radio-label-dark {
+    color:#bf5a5d;
+    font-family: 'Andale Mono';
+    font-size: 2vh;
+    padding: 1vh;
 }

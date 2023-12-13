@@ -7,6 +7,12 @@ body {
   margin: 0; /* Remove default body margin */
   background-color: #f6f4e6; /* Background color for the entire page */
   font-family: 'Playfair Display';font-size: 22px;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Style for the black box outline */
@@ -62,8 +68,8 @@ body {
 /* Style for Dark Mode */
 
 .dark {
-  background-color: #111111;
-  color: white;
+  background-color: #bf5a5d;
+  color: #f4ede1;
 }
 
 .dark .option {
@@ -99,9 +105,11 @@ body {
   color: #ffffff;
 }
 
+/*
 .dark .userInfo::placeholder {
   color: #fff;
 }
+*/
 
 /* Dark Mode Toggle */
 
@@ -124,9 +132,11 @@ body {
   color: #007bff;
 }
 
+/*
 .userInfo {
   color: #fff;
 }
+*/
 
 .dark .dark-toggle input {
   color: #ff0007;
@@ -172,7 +182,7 @@ body {
 .loginForm {
   border: none;
 }
-
+/*
 .userInfo {
   background-color: rgba(255,255,255,0.25);
   padding: 10px;
@@ -186,3 +196,4 @@ body {
 .userInfo::placeholder {
   color: #000;
 }
+*/

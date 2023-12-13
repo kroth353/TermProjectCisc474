@@ -8,75 +8,23 @@ function dimslider() {
 var topTen = new Array();
 
 async function renderPage(page) {
-    let htmlStr = "";
-    if(page == "game1settings") {
-        /*
-        htmlStr = `
-        <div class="row">
-            <div class="leftcolumn">
-                <div class="clearbox"></div>
-            </div>
-            <div class="middlecolumn">
-                <div class="box">
-                    <h1>Matching</h1>
-                    <h2>Game mode</h2>
-                    <p>
-                        Pick a game mode below. Arcade mode tests how many matches you can make<br>
-                        in SET AMOUNT OF TIME. Casual mode allows you to take your time and work <br>
-                        your way through the grid sizes.
-                    </p>
-                    <div class="container">
-                        <input type="radio" name="gameModeSelector" value="Casual" checked="true">
-                            <label>Casual</label>
-                        <input type="radio" name="gameModeSelector" value="Arcade">
-                            <label>Arcade</label>
-                    </div>
-                    <h2>Level Select</h2>
-                    <p>
-                        Pick a level below.
-                        The level will be the number of matches in the grid.
-                    </p>
-                    <div class="container">
-                        <input type="radio" name="LevelSelector" value="5">
-                        <label>5</label>
-                        <input type="radio" name="LevelSelector" value="10" checked="true">
-                        <label>10</label>
-                        <input type="radio" name="LevelSelector" value="15">
-                        <label>15</label>
-                    </div>
-                    <h2>Theme Select</h2>
-                    <p>
-                        Pick a theme below.
-                        The theme will determine what images will be displayed on the cards.
-                    </p>
-                    <div class="container">
-                        <input type="radio" name="ThemeSelector" value="1"  checked="true">
-                        <label>Animals</label>
-                        <input type="radio" name="ThemeSelector" value="2">
-                        <label>Numbers</label>
-                        <input type="radio" name="ThemeSelector" value="3">
-                        <label>Colors</label>
-                    </div>
-                    <h2>Directions</h2>
-                    <p>
-                        Flip over cards over by clicking on them. Remember the images on the ones you have<br>
-                        flipped so you can create a match! A match happens when you select two cards with <br>
-                        the same image on them. 
-                    </p>
-                </div>
-            </div>
-            <div class="rightcolumn">
-                <div class="clearbox"></div>
-            </div>
+    let htmlStr = `
+    <div class='home-button-div' onclick="renderPage('home')">
+        <i class="fa-solid fa-house"></i>
+    </div>
+    `;
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const id = urlParams.get('id');
+    if(id) {
+    htmlStr += `
+        <div id='logout-button-div' class='logout-button-div' onclick="logout()">
+            <i class="fa-solid fa-door-open"></i>
         </div>
-        <nav>
-            <div class="black-box">
-                <button onclick="renderPage('home')" class="option">Home</a> <br>
-                <button onclick="startGame(false)" class="option">Play</a> <br>
-            </div>
-        </nav>`;
-        */
-       htmlStr = `
+        `;
+    }
+    if(page == "game1settings") {
+       htmlStr += `
         <h1 class='directions-header'>Match</h2>
         <p class='directions-text'>Flip over cards that match to gain points!</p>
         <p class='mode-text'>Pick a game mode:</p>
@@ -88,7 +36,7 @@ async function renderPage(page) {
         </div>
         <p class='theme-text'>Pick a theme for your game:</p>
         <div class='radio-div-theme'>
-            <input type="radio" name="ThemeSelector" value="1">
+            <input type="radio" name="ThemeSelector" value="1" checked="true">
             <label class='settings-text'>Animals</label>
             <input type="radio" name="ThemeSelector" value="2">
             <label class='settings-text'>Numbers</label>
@@ -96,29 +44,32 @@ async function renderPage(page) {
             <label class='settings-text'>Colors</label>
         </div>
         <div id='card-easy' class='item-card-settings' onclick="flipMenuCard('card-easy')">
-            <div class='front-face-menu' onclick="startGame('easy', 'false')">
+            <div class='front-face-menu' onclick="startGame(5, false)">
                 <img class='front-face-img-menu' src='images/menuCardFront.png'>
                 <p class="menu-card-text">Easy</p>
             </div>
             <img class='back-face-menu' src='images/cardBack.svg'>
         </div>
         <div id='card-medium' class='item-card-settings' onclick="flipMenuCard('card-medium')">
-            <div class='front-face-menu' onclick="startGame('medium', 'false')">
+            <div class='front-face-menu' onclick="startGame(10, false)">
                 <img class='front-face-img-menu' src='images/menuCardFront.png'>
                 <p class="menu-card-text">Medium</p>
             </div>
             <img class='back-face-menu' src='images/cardBack.svg'>
         </div>
         <div id='card-hard' class='item-card-settings' onclick="flipMenuCard('card-hard')">
-            <div class='front-face-menu' onclick="startGame('hard', 'false')">
+            <div class='front-face-menu' onclick="startGame(15, false)">
                 <img class='front-face-img-menu' src='images/menuCardFront.png'>
                 <p class="menu-card-text">Hard</p>
             </div>
             <img class='back-face-menu' src='images/cardBack.svg'>
         </div>
-       `;
+        `;
+        if(!id) {
+            htmlStr += `<p class='home-footer'>Remember to log in to get your high score on the leaderboard!</p>`;
+        }
     } else if (page == "game2settings") {
-        htmlStr = `
+        htmlStr += `
         <div class="row">
             <div class="leftcolumn">
                 <div class="clearbox"></div>
@@ -178,14 +129,11 @@ async function renderPage(page) {
         </nav>
         `;
     } else if (page == "game1") {
-        htmlStr = `
-        <div class='header-box'>
-            <div id='lives'></div>
-            <div id='score'></div>
-            <div id='timer'></div>
-        </div>
-        <section id="memory-game" class="memory-game"></section>
-        <div id="game1-leaderboard" class="leaderboard">
+        htmlStr += `
+        <div class='game-page-div'>
+            <div id='lives-timer' class='lives-timer'></div>
+            <div id='score' class= 'score'></div>
+            <section id="memory-game" class="memory-game"></section>
         `;
         var ele = document.getElementsByName('LevelSelector');
         for (i = 0; i < ele.length; i++) {
@@ -199,29 +147,27 @@ async function renderPage(page) {
                 imgOption = ele[i].value;
             }
         }
-        var ele = document.getElementsByName('gameModeSelector');
-        for (i = 0; i < ele.length; i++) {
-            if (ele[i].checked) {
-                mode = ele[i].value;
-            }
-        }
         game = "game1-" + imgOption + "-" + matches + "-" + mode;
+        console.log(game);
         const result = await getTopTen(game);
         console.log("topTen in render: " + topTen);
         if(topTen != "") {
-            for(let i=0; i<topTen.length; i++) {
+            htmlStr += `<div id='leaderboard' class='leaderboard'><div class='leaderboard-header-box'><p class='leaderboard-header'>LEADERBOARD</p></div>`;
+            for(let i=topTen.length-1; i>-1; i--) {
                 console.log("topTen[" + i + "]: " + topTen[i]);
                 let val = JSON.parse(topTen[i]);
                 let username = val["username"];
                 let score = val["score"];
                 htmlStr += `
-                <div id="leaderboard-item${i+1}" class="leaderboard-item"><p>${username}</p><p>${score}</p></div>
+                <div id="leaderboard-item${i+1}" class="leaderboard-item"><p class='leaderboard-text'>${username}</p><p class='leaderboard-text'>${score}</p></div>
                 `;
             }
+            htmlStr += "</div></div></div>";
+        } else {
             htmlStr += "</div>";
         }
     } else if (page == "game2") {
-        htmlStr = `
+        htmlStr += `
         <div class="heading">
             <header>
                 <h1 class="title">Game Library</h1>
@@ -238,54 +184,25 @@ async function renderPage(page) {
         </nav>
         `;
     } else if (page == "homesettings") {
-        htmlStr = `
-        <div class="heading">
-            <header>
-                <h1 class="title">Game Library</h1>
-                    <p>
-                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                    </p>
-            </header>
-        </div>
-        <div class="content">
-            <div class="black-box">
-                <button onclick="renderPage('home')" class="option">Home</button><br>
-                <h2>Appearance</h2>
-                <div class="dark-toggle">
-                    <label class="radio-label">
+        htmlStr += `
+        <div id='card-dark-menu' class='item-card-login'>
+            <div class='front-face-menu'>
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <div id="darkForm" class="card-form">
+                    <p class='card-login-header'>Appearance</p>
+                    <div class='radio-div-dark'>
                         <input type="radio" name="theme" onclick="darkMode()" value="light">
-                        <span class="radio-button"></span> Light
-                    </label><br>
-                    <label class="radio-label">
+                        <label class="radio-label-dark">Light</label>
+                        <br>
                         <input type="radio" name="theme" onclick="darkMode()" value="dark">
-                        <span class="radio-button"></span> Dark
-                    </label>
+                        <label class="radio-label-dark">Dark</label>
+                    </div>
                 </div>
             </div>
+            <img class='back-face-menu' src='images/cardBack.svg' onclick="flipMenuCard('card-dark-menu')">
         </div>
         `;
     } else if (page == "home") {
-        /*
-        htmlStr = `
-        <div class="heading">
-            <header>
-                <h1 class="title">Game Library</h1>
-                    <p>
-                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                    </p>
-            </header>
-        </div>
-        <nav>
-            <div class="black-box">
-                <!--<button onclick="renderPage('home')" class="option">Home</a> <br>-->
-                <button onclick="renderPage('login')" class="option">Login</a> <br>
-                <button onclick="renderPage('game1settings')" class="option">Game 1</a> <br>
-                <button onclick="renderPage('game2settings')" class="option">Game 2</a> <br>
-                <button onclick="renderPage('homesettings')" class="option">Settings</a>
-                </div>
-            </div>
-        </nav>
-        */
         htmlStr = `
         <h1 class='home-header'>MindMatch</h1>
         <p class='home-subheader'>a match for your mind</p>
@@ -317,51 +234,34 @@ async function renderPage(page) {
             </div>
             <img class='back-face-menu' src='images/cardBack.svg'>
         </div>
-        <p class='home-footer'>Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda</p>
+        <p class='home-footer'>Kayla Roth | Jason Hensley | Michael Arocho | Regis Jet Puebla | Rohan Yarlagadda</p>
         `;
-        /*
-        document.body.innerHTML = htmlStr;
-        document.querySelectorAll('.item-card-menu').forEach(c => {
-            c.addEventListener('mouseenter', (event) => {this.classList.toggle('flip');});
-        });
-        
-        document.querySelectorAll('.item-card-menu').forEach(c => {
-            c.addEventListener('mouseleave', (event) => {this.classList.toggle('flip');});
-        });
-        */
     } else if (page == "login") {
-        htmlStr = `
-        <div class="heading">
-            <header>
-                <h1 class="title">Game Library</h1>
-                    <p>
-                        Kayla Roth, Jason Hensley, Michael Arocho, Regis Jet Puebla, Rohan Yarlagadda
-                    </p>
-            </header>
-        </div>
-        <div class="content">
-            <div class="black-box">
-                <div class="tabs">
-                    <button class="tabLinks" onClick="openPrompt(event, 'loginForm')" id="default">Log In</button>
-                    <button class="tabLinks" onClick="openPrompt(event, 'signupForm')">Sign Up</button>
-                </div>
-    
-                <div id="loginForm" class="userTab">
-                    <h1>Log In</h1>
-                    <form name="loginForm" onsubmit="return false;">
+        htmlStr += `
+        <div id='card-login-menu' class='item-card-login'>
+            <div class='front-face-login'>
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <div id="loginForm" class="card-form">
+                    <p class='card-login-header'>Log In</p>
+                    <form name="loginForm" class='card-form-content' onsubmit="return false;">
                         <div>
                             <input name="login_username" class="userInfo" type="email" id="login_username" placeholder="Enter Username">
                             <br>
                             <input id="login_password" class="userInfo" name="login_password" type="text" placeholder="Enter Password">
                         </div>
+                        <p class='loginFormError' id="loginFormError"> </p>
                     </form>
-                    <p id="loginFormError"></p>
-                    <button class="option" onClick="login()">Log in</button>
+                    <button class="login-option" role="button" onClick="login()">Log in</button>
                 </div>
-    
-                <div id="signupForm" class="userTab">
-                    <h1>Sign Up</h1>
-                    <form name="signupForm" onsubmit="return false;">
+            </div>
+            <img class='back-face-menu' src='images/cardBack.svg' onclick="flipMenuCard('card-login-menu')">
+        </div>
+        <div id='card-signup' class='item-card-login'>
+            <div class='front-face-login'>
+                <img class='front-face-img-menu' src='images/menuCardFront.png'>
+                <div id="signupForm" class="card-form">
+                    <p class='card-login-header'>Sign Up</p>
+                    <form name="signupForm" class='card-form-content' onsubmit="return false;">
                         <div>
                             <input id="signup_username" class="userInfo" name="signup_username" type="text" placeholder="Enter Username">
                             <br>
@@ -371,12 +271,12 @@ async function renderPage(page) {
                             <br>
                             <input id="signup_password_con" class="userInfo" name="signup_password_con" type="text" placeholder="Confirm Password">
                         </div>
+                        <p id="signupFormError" class='loginFormError'> </p>
                     </form>
-                    <p id="signupFormError"></p>
-                    <button id="signup" class="option" onclick="signup()">Sign Up</button>
+                    <button id="signup" class="login-option" role="button" onclick="signup()">Sign Up</button>
                 </div>
-                <button onclick="renderPage('home')" class="option">Home</button><br>
             </div>
+            <img class='back-face-menu' src='images/cardBack.svg' onclick="flipMenuCard('card-signup')">
         </div>
         `;
     }
@@ -493,23 +393,13 @@ function validateLoginForm() {
 
 // Code for Dark Mode functionality
 document.addEventListener('DOMContentLoaded', function () {
-    //var selectedTheme = sessionStorage.getItem('selectedTheme') || 'light';
-    //applyTheme(selectedTheme);
     darkMode();
     var radioButtons = document.querySelectorAll('input[name="theme"]');
     radioButtons.forEach(function (radioButton) {
         radioButton.addEventListener('click', function () {
-            //sessionStorage.setItem('selectedTheme', this.value);
-            //applyTheme(this.value);
             darkMode();
         });
     });
-    /*
-    var selectedRadioButton = document.querySelector('input[name="theme"][value="' + selectedTheme + '"]');
-    if (selectedRadioButton) {
-        selectedRadioButton.checked = true;
-    }
-    */
 });
 
 function darkMode() {
@@ -543,29 +433,6 @@ function darkMode() {
     }
 }
 
-/*
-function darkMode() {
-    var selectedTheme = document.querySelector('input[name="theme"]:checked').value;
-    localStorage.setItem('selectedTheme', selectedTheme);
-    applyTheme(selectedTheme);
-}
-
-
-function applyTheme(selectedTheme) {
-    var element = document.body;
-    var transitionProperties = "background-color 0.5s, color 0.5s";
-    var animation = selectedTheme === 'dark' ? "darkModeFadeIn 0.5s" : "darkModeFadeIn 0.5s reverse";
-
-    element.style.transition = transitionProperties;
-    element.style.animation = animation;
-
-    if (selectedTheme === 'dark') {
-        element.classList.add('dark');
-    } else {
-        element.classList.remove('dark');
-    }
-}
-*/
 // Code for Tab Switching 
 function openPrompt(evt, status) {
     var i, userTab, tabLinks;
@@ -591,4 +458,11 @@ document.addEventListener("DOMContentLoaded", () => {
 //flip menu card
 async function flipMenuCard(id) {
     document.getElementById(id).classList.toggle('flip');
+}
+
+function logout() {
+    document.getElementById('logout-button-div').innerHTML = "";
+    const url = new URL(window.location.href);
+    url.searchParams.delete("id");
+    history.pushState({}, "", url)
 }

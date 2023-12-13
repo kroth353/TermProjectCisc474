@@ -13,15 +13,10 @@ var seconds = 60;
 let timer;
 
 function createCards(numCards) {
-    console.log("creating " + numCards + " cards");
     let numCol = Math.ceil(Math.sqrt(numCards));
-    let numRow = Math.ceil(numCards/numCol);
-    console.log("numCol: " + numCol + "numRow: " + numRow);
-    console.log("game width: " + document.getElementById('memory-game').clientWidth);
-    let cardHeightNum = Math.ceil((document.getElementById('memory-game').clientHeight*0.9)/numRow);
-    let cardWidthNum = Math.ceil((cardHeightNum*4.5)/7);
+    let cardWidthNum = Math.ceil((document.getElementById('memory-game').clientWidth*0.47)/numCol);
+    let cardHeightNum = Math.ceil((cardWidthNum*7)/4.5);
     let cardWidth = cardWidthNum.toString();
-    console.log("card width: " + cardWidth);
     let cardHeight = cardHeightNum.toString();
     var imgs = [];
     if(imgOption == 1) {
@@ -45,14 +40,11 @@ function createCards(numCards) {
     
     for(let i = 0; i<(numCards); i++) {
         cardStr = imgs[arrayOption[i]];
-        console.log(cardStr);
         htmlStr += "<div id='" + cardStr + i + "' class='item-card' style='width: " + cardWidth + "px; height: " + 
                     cardHeight + "px'><img class='front-face' src='images/" + cardStr + ".png'><img class='back-face' src='images/cardBack.svg'></div>";
     }
-    console.log("htmlStr" + htmlStr);
     document.getElementById('memory-game').innerHTML = htmlStr;
-    document.getElementById('lives').innerHTML = "<p style='padding-top:75px'>Lives: " + lives + "</p>";
-    document.getElementById('score').innerHTML = "<p style='padding-top:75px'>Score: " + score + "</p>";
+    document.getElementById('score').innerHTML = "<p class='score-text'>" + score + "</p>";
 }
 
 async function startGame(numMatches, restart) {
@@ -71,21 +63,33 @@ async function startGame(numMatches, restart) {
             }
         }
         game = "game1-" + imgOption + "-" + matches + "-" + mode;
+        await renderPage('game1');
     }
-    await renderPage('game1');
-    console.log("game started");
+    if(mode == 'Survive') {
+        let livesHtmlStr = `<div class='lives-box'>`;
+        for(let i=0; i<3; i++){
+            if(i<lives) {
+                livesHtmlStr += `<i class="fa-solid fa-heart"></i>`;
+            } else {
+                livesHtmlStr += `<i class="fa-solid fa-heart" style="opacity: 0%"></i>`;
+            }
+        }
+        livesHtmlStr += "</div>";
+        document.getElementById('lives-timer').innerHTML = livesHtmlStr;
+    }
     let numCards = matches*2;
     numLeft = numCards;
-    //hideStartButton();
     createCards(numCards);
-    console.log("before first flip");
     await sleep(1000);
     flipAllCards();
     await sleep(10000);
     flipAllCards();
     addClickListenerToAll();
     if(mode == 'Timed') {
-        seconds = 60;
+        if(!restart) {
+            seconds = 60;
+            document.getElementById('lives-timer').innerHTML = `<p class='timer-text'>${seconds}</p>`;
+        }
         timer = setInterval(() => updateTimer(), 1000);
     }
 }
@@ -94,7 +98,6 @@ function addClickListenerToAll() {
     document.querySelectorAll('.item-card').forEach(c => {
         c.addEventListener('click', flipCard);
     });
-    console.log("flip listener created");
 }
 
 function addClickListenerToAllNotFlipped() {
@@ -103,14 +106,12 @@ function addClickListenerToAllNotFlipped() {
             c.addEventListener('click', flipCard);
         }
     });
-    console.log("flip listener created");
 }
 
 function removeClickListenerFromAll() {
     document.querySelectorAll('.item-card').forEach(c => {
         c.removeEventListener('click', flipCard);
     });
-    console.log("flip listener removed");
 }
 
 function flipAllCardsNotFlipped() {
@@ -119,7 +120,6 @@ function flipAllCardsNotFlipped() {
             c.classList.toggle('flip');
         }
     });
-    console.log("flip listener created");
 }
 
 function shakeAllCards() {
@@ -140,26 +140,39 @@ async function flipCard() {
     this.removeEventListener('click', flipCard);
     this.classList.toggle('flip');
     let id = this.id;
-    console.log("id: " + id);
-    console.log("matchStr: " + matchStr);
     if(matchStr == "") {
         matchStr = id;
     } else if (matchStr.replace(/[0-9]/g, '') == id.replace(/[0-9]/g, '')) {
         numLeft -= 2;
         matchStr = "";
         score += 10;
-        document.getElementById('score').innerHTML = "<p>Score: " + score + "</p>";
+        document.getElementById('score').innerHTML = "<p class='score-text'>" + score + "</p>";
         if (numLeft == 0) {
-            await sleep(2000);
+            clearInterval(timer);
+            await sleep(1000);
+            flipAllCardsNotFlipped();
+            await sleep(500);
+            flipAllCards();
+            await sleep(500);
+            dropAllCards();
+            await sleep(900);
             startGame(matches, true);
         }
     } else {
         removeClickListenerFromAll();
         await sleep(2000);
-        //document.getElementById(matchStr).addEventListener('click', flipCard);
         if(mode == 'Survive') {
             lives -= 1;
-            document.getElementById('lives').innerHTML = "<p>Lives: " + lives + "</p>";
+            let livesHtmlStr = `<div class='lives-box'>`;
+            for(let i=0; i<3; i++){
+                if(i<lives) {
+                    livesHtmlStr += `<i class="fa-solid fa-heart"></i>`;
+                } else {
+                    livesHtmlStr += `<i class="fa-solid fa-heart" style="opacity: 0%"></i>`;
+                }
+            }
+            livesHtmlStr += "</div>";
+            document.getElementById('lives-timer').innerHTML = livesHtmlStr;
             if(lives == 0) {
                 highscore(score);
                 lives = 3;
@@ -171,11 +184,8 @@ async function flipCard() {
                 await sleep(500);
                 shakeAllCards();
                 await sleep(2000);
-                //dropAllCards();
-                //await sleep(5000);
                 document.getElementById('memory-game').innerHTML = `
-                <button class='option' onclick='startGame(${matches}, true)'>Restart</button>
-                <button onclick="renderPage('home')" class="option">Home</button><br>
+                <button class='login-option' onclick='startGame(${matches}, false)'>Restart</button>
                 `;
                 score = 0;
                 matchStr = "";
@@ -208,7 +218,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 //need to add different game values depending on settings
-function highscore(score) {
+async function highscore(score) {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const id = urlParams.get('id');
@@ -217,12 +227,11 @@ function highscore(score) {
             url: `/api/v1/highscore?id=${id}&score=${score}&game=${game}`,
             type: 'POST',
             success: function (result) {
-                console.log("highscore");
                 const url = new URL(window.location.href);
                 const resultStr = JSON.stringify(result);
                 const unquoted = resultStr.replace(/\"/g, "");
                 url.searchParams.set("id", unquoted);
-                history.pushState({}, "", url)
+                history.pushState({}, "", url);
             }
         });
     }
@@ -230,12 +239,13 @@ function highscore(score) {
 
 function updateTimer() {
     seconds--;
-    document.getElementById('timer').innerHTML = seconds;
-    console.log(seconds);
-    if (seconds === 0) {
+    document.getElementById('lives-timer').innerHTML = `<p class='timer-text'>${seconds}</p>`;
+    if (seconds == 0) {
         clearInterval(timer);
-        document.getElementById('timer').innerHTML = 0;
+        document.getElementById('lives-timer').innerHTML = `<p class='timer-text'>0</p>`;
         endGame();
+    } else if (seconds == 1) {
+        removeClickListenerFromAll();
     }
 }
 
@@ -245,14 +255,34 @@ async function endGame() {
     flipAllCardsNotFlipped();
     removeClickListenerFromAll();
     await sleep(2000);
+    flipAllCardsNotFlipped();
+    await sleep(500);
     flipAllCards();
     await sleep(500);
     shakeAllCards();
     await sleep(2000);
     document.getElementById('memory-game').innerHTML = `
-    <button class='option' onclick='startGame(${matches}, true)'>Restart</button>
-    <button onclick="renderPage('home')" class="option">Home</button><br>
+    <button class='login-option' onclick='startGame(${matches}, false)'>Restart</button>
     `;
     score = 0;
+    seconds = 60;
     matchStr = "";
+}
+
+window.onresize = resizeCards;
+
+function resizeCards() {
+    if(document.getElementById('memory-game')) {
+        let numCards = matches*2;
+        let numCol = Math.ceil(Math.sqrt(numCards));
+        let numRow = Math.ceil(numCards/numCol);
+        let cardWidthNum = Math.ceil((document.getElementById('memory-game').clientWidth*0.47)/numCol);
+        let cardHeightNum = Math.ceil((cardWidthNum*7)/4.5);
+        let cardWidth = cardWidthNum.toString() + "px";
+        let cardHeight = cardHeightNum.toString() + "px";
+        document.querySelectorAll('.item-card').forEach(c => {
+            c.style.width = cardWidth;
+            c.style.height= cardHeight;
+        });
+    }
 }
