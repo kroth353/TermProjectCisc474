@@ -16,3 +16,6 @@ Unlike the game pages of the site, the Settings page uses radio buttons. The use
 
 Hosting Locally:
 Enter 'node app.js' into the terminal in the root directory of the project. Use a browser to navigate to 'http://localhost:8080/'. If you have any issues, use google chrome. Some users have mentioned issues using Mozilla Firefox that we would like to resolve in the future.
+
+Using Render:
+vist: https://cisc474-mindmatch.onrender.com/.
