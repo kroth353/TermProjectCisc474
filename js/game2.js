@@ -30,6 +30,7 @@ new color (Bright Cyan): #007BFF
 (lime): #92dd55
 */
 
+// Sets the values of the inputs on game 2 settings
 function setInputElements() {
     // input elements
     let sizeInput = document.querySelector("#sizePick");
@@ -81,15 +82,21 @@ function setInputElements() {
         console.log("Keep Is Off!");
         sizeInput.value = 2;
         sizeOutput.innerHTML = "2 x 2";
+        localStorage.setItem("size","2");
         diffInput1.checked = true;
+        localStorage.setItem("difficulty","easy");
         colorInput.value = "#1c87c9";
         colorOutput.innerHTML = "#1c87c9";
+        localStorage.setItem("color","#1c87c9");
         keepInput1.checked = true;
+        localStorage.setItem("keep","false");
     }
 }
 
+// Updates values on clicks
 window.onclick = getValues;
 
+// Adds event listeners to input elements
 function getValues() {
     window.addEventListener("load", startup, false);
 
@@ -113,6 +120,7 @@ function getValues() {
     let colorValue;
     let keepValue;
 
+    // Adds event listeners
     function startup() {
         // add eventlisteners
         sizeInput.addEventListener("input", updateFirst, false);
@@ -124,6 +132,7 @@ function getValues() {
         keepInput2.addEventListener("input", updateFirst, false);
     }
 
+    // updates when input is interacted
     function updateFirst(event) {
         console.clear();
         sizeValue = sizeInput.value;
@@ -164,6 +173,7 @@ function getValues() {
     }
 }
 
+// Update Button to refresh actual game 2 settings on the page.
 function updateSetVals() {
     // input elements
     let sizeInput = document.querySelector("#sizePick");
@@ -198,8 +208,11 @@ function updateSetVals() {
 
 // Game 2
 
+// Updates the game grid when the screen is resized
 window.onresize = setValues;
 
+// Sets the values from the game 2 settings onto the game 2 
+// page for the game grid and outputs
 function setValues() {
     //console.clear();
     // getting local variables
@@ -262,6 +275,9 @@ function setValues() {
     localStorage.setItem("cellSequence",cellSeqStr);
     // set toggle on
     localStorage.setItem("isClickOn","false");
+    localStorage.setItem("pulseCount","1");
+    localStorage.setItem("highScore","0")
+    localStorage.setItem("checkStatus","0");
 
     // add onclick function to gameCells
     for (let row = 0; row < gridSize; row++) {
@@ -277,18 +293,42 @@ function setValues() {
                 if (isClickOn == "true") {
                     //console.log("Click Game Cell is On!");
                     seqArr.push(cellId);
-                    // call to console
-                    if (isEqualSequence() == 1) {
+                    // store cell id in cell sequence
+                    sequenceStr = JSON.stringify(seqArr);
+                    localStorage.setItem("cellSequence",sequenceStr);
+                    
+                    // call to console if cell and random sequence are equal
+                    if (isEqualSequence() == 2) {
                         console.log("Random and Cell are equal!");
+                        let count = localStorage.getItem("pulseCount");
+                        count++;
+                        let scoreOutput = document.querySelector("#gameScore");
+                        scoreOutput.innerHTML = "Score: " + (count-1);
+                        let highScoreOutput = document.querySelector("#highScore");
+                        let highScore = localStorage.getItem("highScore");
+                        if (count-1 > highScore) {
+                            highScoreOutput.innerHTML = "High Score: " + (count-1);
+                        }
+                        localStorage.setItem("pulseCount",count);
+                        enableStartLevelBtn();
+                        disableStartGameBtn();
+                    } else if (isEqualSequence() == 1) {
+                        console.log("Random and Cell are equal so far!");
+                        disableStartGameBtn();
                     } else if (isEqualSequence() == 0) {
                         console.log("Random and Cell are not equal!");
+                        let count = localStorage.getItem("pulseCount");
+                        count = 1;
+                        let scoreOutput = document.querySelector("#gameScore");
+                        scoreOutput.innerHTML = "Score: " + (count-1);
+                        localStorage.setItem("pulseCount",count);
+                        enableStartGameBtn();
+                        toggleClickOff();
                     }
                     console.log("Cell Id: " + cellId);
                     console.log("Cell sequence: " + seqArr);
                 }
-                // store cell id in cell sequence
-                sequenceStr = JSON.stringify(seqArr);
-                localStorage.setItem("cellSequence",sequenceStr);
+                
             }
             gridCell.onclick = clickCell;
         }
@@ -297,6 +337,7 @@ function setValues() {
     localStorage.setItem("cellGridJS",cellRows);
 }
 
+// Creates a random sequence of cells
 function makeSequence(iter) {
     //console.clear();
     /*
@@ -351,6 +392,7 @@ function makeSequence(iter) {
     console.log("Index sequence: " + indexSeqStr);
 }
 
+// Updates a cell's color
 function updateCell(index,color) {
     //console.log("Updating cell: " + index);
     //get local variables
@@ -380,6 +422,8 @@ function updateCell(index,color) {
     //console.log(cell);
 }
 
+// Uses the random sequence to change each cell's color
+// to create the illusion of pulses
 function pulseSequence() {
     console.log("Pulse Sequence!");
     let indexSeq = localStorage.getItem("randomSequence");
@@ -408,67 +452,74 @@ function pulseSequence() {
     }
 }
 
-function memoryGame() {
-    // start game
-    console.log("Start Game!");
-
-    
-    //disableStartGameBtn();
-    //enableStartLevelBtn();
-}
-
+// Disables Start Game Button
 function disableStartGameBtn() {
+    console.log("Start Level Disabled!");
     let startGameBtn = document.querySelector("#startGameBtn");
     startGameBtn.disabled = true;
     startGameBtn.style.setProperty("background-color","gray");
 }
 
+// Enables Start Game Button
 function enableStartGameBtn() {
+    console.log("Start Game Enabled!");
     let startGameBtn = document.querySelector("#startGameBtn");
     startGameBtn.disabled = false;
     startGameBtn.style.setProperty("background-color","#007bff");
 }
 
+// Disables Start Level Button
 function disableStartLevelBtn() {
     console.log("Start Level Disabled!");
     let startLevelBtn = document.querySelector("#startLevelBtn");
     startLevelBtn.disabled = true;
-    startLevelBtn.style.setProperty("background-color","#gray");
+    startLevelBtn.style.setProperty("background-color","gray");
 }
 
+// Enables Start Level Button
 function enableStartLevelBtn() {
-    
+    console.log("Start Level Enabled!");
     let startLevelBtn = document.querySelector("#startLevelBtn");
     startLevelBtn.disabled = false;
     startLevelBtn.style.setProperty("background-color","#007bff");
 }
 
+// Enables the Start Level Button
+function memoryGame() {
+    // start game
+    console.log("Start Game!");
+    disableStartGameBtn();
+    enableStartLevelBtn();
+}
+
+// Actual function to call for the game 2 to start
 function startLevel() {
     // start level
     console.log("Start Level!");
-    let count = 1;
-    toggleClickOn();
-
-
+    let count = localStorage.getItem("pulseCount");
+    toggleClickOff();
     disableStartLevelBtn();
     clearCellSequence();
     makeSequence(count);
     pulseSequence();
-    
-    getRandomSequence();
-    getCellSequence();
+    let delay = localStorage.getItem("time");
+    console.log("Time delay: " + delay*count);
+    setTimeout(() => toggleClickOn(),delay*count*1000);
 }
 
+// Allows the game cells to be clicked
 function toggleClickOn() {
     console.log("Click Set On!");
     localStorage.setItem("isClickOn","true");
 }
 
+// Allows the game cells to be clicked
 function toggleClickOff() {
     console.log("Click Set Off!");
     localStorage.setItem("isClickOn","false");
 }
 
+// Get the random sequence of cells
 function getRandomSequence() {
     let randomSeqStr = localStorage.getItem("randomSequence");
     let randomSequence = JSON.parse(randomSeqStr);
@@ -476,6 +527,7 @@ function getRandomSequence() {
     return randomSequence;
 }
 
+// Get the cell sequence clicked by the user
 function getCellSequence() {
     let cellSeqStr = localStorage.getItem("cellSequence");
     let cellSequence = JSON.parse(cellSeqStr);
@@ -483,28 +535,31 @@ function getCellSequence() {
     return cellSequence;
 }
 
+// Clear all the user clicked cell sequence
 function clearCellSequence() {
     let cellSequence = [];
     let cellSeqStr = JSON.stringify(cellSequence);
     localStorage.setItem("cellSequence",cellSeqStr);
 }
 
+// Determines if random and cell sequences are equal to progress
 function isEqualSequence() {
     console.log("Equal Sequence?");
-    let isEqual = 1;
+    // 0 = not equal, 1 = equal so far, 2 = all equal
+    let isEqual = 0;
     let randomSequence = getRandomSequence();
     let cellSequence = getCellSequence();
     let randomSize = randomSequence.length;
     let cellSize = cellSequence.length;
-    if (randomSize != cellSize) {
-        isEqual = 0;
-    } else {
-        for (let index = 0; index < cellSize; index++) {
-            let randomCell = randomSequence[index];
-            let sequenceCell = cellSequence[index];
-            if (randomCell != sequenceCell) {
-                isEqual = 0;
-            }
+    for (let index = 0; index < cellSize; index++) {
+        let randomCell = randomSequence[index];
+        let sequenceCell = cellSequence[index];
+        if (randomCell == sequenceCell && randomSize == cellSize) {
+            isEqual = 2;
+        } else if (randomCell == sequenceCell) {
+            isEqual = 1;
+        } else {
+            isEqual = 0;
         }
     }
     return isEqual;

@@ -9,7 +9,7 @@ body {
     background-color: #f0f0f0; /* Background color for the entire page */
 }
 
-a,#gameValues {
+a,#gameValues,#settingValues {
     display: block;
     background-color: #007bff;
     color: white;
@@ -96,13 +96,16 @@ button {
 
 /*
 .gameCell {
+    background-color: #ffffff;
+    /*
     position: relative;
     margin: 0px;
     border: none;
     animation-name: pulse;
     --startColor: none;
     --pulseColor: none;
-} 
+    
+} */
 /*
 .easyPulse {
     animation-duration: 1s;
