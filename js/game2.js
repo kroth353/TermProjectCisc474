@@ -210,7 +210,7 @@ function setValues() {
     console.log("size: " + gridSize + " difficulty: " + gridDiff + " color: " + gridColor);
     // game output values
     let gameOutput = document.querySelector("#gameValues");
-    gameOutput.innerHTML = gridSize + " " + gridDiff + " " + gridColor + " " + gridKeep;
+    gameOutput.innerHTML = "| Grid: " + gridSize + " x " + gridSize + " | Difficulty: " + gridDiff + " | Color: " + gridColor + " | Keep Settings: " + gridKeep + " |";
     // getting grid element
     let gameGrid = document.querySelector("#game2Grid");
     let gridWidth = gameGrid.clientWidth;
@@ -228,6 +228,8 @@ function setValues() {
     console.log("Width: " + gridWidth);
     console.log("Height: " + gridHeight);
     console.log("cell size: " + cellSize);
+    // start level btn
+    disableStartLevelBtn();
     // HTML game grid
     let autos = "";
     for (let row = 0; row < gridSize; row++) {
@@ -240,6 +242,7 @@ function setValues() {
     gameGrid.innerHTML = "";
     // JS game grid
     const cellRows = [];
+    // populate gameGrid with div gameCells
     for (let row = 0; row < gridSize; row++) {
         cellCols = [];
         for (let col = 0; col < gridSize; col++) {
@@ -251,6 +254,44 @@ function setValues() {
             cellCols[col] = gridCell.toString();
         }
         cellRows[row] = cellCols;
+    }
+
+    // clicked cell sequence
+    const cellSeq = [];
+    let cellSeqStr = JSON.stringify(cellSeq);
+    localStorage.setItem("cellSequence",cellSeqStr);
+    // set toggle on
+    localStorage.setItem("isClickOn","false");
+
+    // add onclick function to gameCells
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            let gridCell = document.querySelector("#cell"+((row*gridSize)+col));
+            const clickCell = function() {
+                // get cell sequence
+                let sequenceStr = localStorage.getItem("cellSequence");
+                let seqArr = JSON.parse(sequenceStr);
+                // cell id
+                let cellId = this.id.replace("cell","");
+                let isClickOn = localStorage.getItem("isClickOn");
+                if (isClickOn == "true") {
+                    //console.log("Click Game Cell is On!");
+                    seqArr.push(cellId);
+                    // call to console
+                    if (isEqualSequence() == 1) {
+                        console.log("Random and Cell are equal!");
+                    } else if (isEqualSequence() == 0) {
+                        console.log("Random and Cell are not equal!");
+                    }
+                    console.log("Cell Id: " + cellId);
+                    console.log("Cell sequence: " + seqArr);
+                }
+                // store cell id in cell sequence
+                sequenceStr = JSON.stringify(seqArr);
+                localStorage.setItem("cellSequence",sequenceStr);
+            }
+            gridCell.onclick = clickCell;
+        }
     }
     localStorage.setItem("cellGridHTML",gameGrid);
     localStorage.setItem("cellGridJS",cellRows);
@@ -272,18 +313,21 @@ function makeSequence(iter) {
     let diffTime = (gridDiff == "easy") ? 1: (gridDiff == "medium") ? 0.5: (gridDiff == "hard") ? 0.25: 1;
     
     // generate index and delay sequences
-    const indexSeq = [];
-    const delaySeq = [];
+    const randomIndexSeq = [];
+    const randomDelaySeq = [];
     for (let count = 0; count < iter; count++) {
         let row = Math.floor(Math.random() * gridSize);
         let col = Math.floor(Math.random() * gridSize);
         let index = (row * gridSize) + col;
-        indexSeq.push(index);
-        delaySeq.push(diffTime * count);
+        randomIndexSeq.push(index);
+        randomDelaySeq.push(diffTime * count);
     }
+    let indexSeqStr = JSON.stringify(randomIndexSeq);
+    let delaySeqStr = JSON.stringify(randomDelaySeq);
+    // set difficulty time, random sequence, and delay sequence
     localStorage.setItem("time",diffTime);
-    localStorage.setItem("sequence",indexSeq);
-    localStorage.setItem("delays",delaySeq);
+    localStorage.setItem("randomSequence",indexSeqStr);
+    localStorage.setItem("randomDelays",delaySeqStr);
 
 /*
     for (let count = 0; count < iter; count++) {
@@ -304,11 +348,11 @@ function makeSequence(iter) {
         setTimeout(() => updateCell(count), 1000*delaySeq[count]);
     }
     */
-    console.log("Index sequence: " + indexSeq);
+    console.log("Index sequence: " + indexSeqStr);
 }
 
 function updateCell(index,color) {
-    console.log("Updating cell: " + index);
+    //console.log("Updating cell: " + index);
     //get local variables
     let gridSize = localStorage.getItem("size");
     let gridDiff =  localStorage.getItem("difficulty");
@@ -318,8 +362,8 @@ function updateCell(index,color) {
     index = (index < 0) ? 0: (index >= gridSize * gridSize) ? gridSize * gridSize: index;
     //delayIndex = (delayIndex < 0) ? 0: (delayIndex >= gridSize * gridSize) ? gridSize * gridSize: delayIndex;
     // not in use
-    let indexSeq = localStorage.getItem("sequence");
-    let delaySeq = localStorage.getItem("delays");
+    let indexSeq = localStorage.getItem("randomSequence");
+    let delaySeq = localStorage.getItem("randomDelays");
 
     let cell = document.querySelector("#cell"+index);
     cell.style.setProperty("background-color",color);
@@ -330,20 +374,22 @@ function updateCell(index,color) {
     //cell.style.setProperty("animation-iteration", values.get(indexSeq[]))
     //cell.style.setProperty("animation-delay", delaySeq[delayIndex] + "s");
     //console.log("Row: " + row + " Col: " + col + " Index: " + index);
-    console.log(cell);
+    
     //setTimeout(() => console.log(count),1000 * count);
+    
+    //console.log(cell);
 }
 
 function pulseSequence() {
     console.log("Pulse Sequence!");
-    let indexSeq = localStorage.getItem("sequence");
-    let delaySeq = localStorage.getItem("delays");
+    let indexSeq = localStorage.getItem("randomSequence");
+    let delaySeq = localStorage.getItem("randomDelays");
     let pulseColor = localStorage.getItem("pulse");
     let gridSize = localStorage.getItem("size");
     let gridDiff =  localStorage.getItem("difficulty");
     let gridColor = localStorage.getItem("color");
     let diffTime = localStorage.getItem("time");
-    let indexes = indexSeq.split(",");
+    let indexes = JSON.parse(indexSeq);
     console.log("Seq length: " + indexes.length);
     console.log("Seq indexes: " + indexes);
 
@@ -363,10 +409,105 @@ function pulseSequence() {
 }
 
 function memoryGame() {
-    let score = 0;
-    let count = 10;
+    // start game
+    console.log("Start Game!");
+
+    
+    //disableStartGameBtn();
+    //enableStartLevelBtn();
+}
+
+function disableStartGameBtn() {
+    let startGameBtn = document.querySelector("#startGameBtn");
+    startGameBtn.disabled = true;
+    startGameBtn.style.setProperty("background-color","gray");
+}
+
+function enableStartGameBtn() {
+    let startGameBtn = document.querySelector("#startGameBtn");
+    startGameBtn.disabled = false;
+    startGameBtn.style.setProperty("background-color","#007bff");
+}
+
+function disableStartLevelBtn() {
+    console.log("Start Level Disabled!");
+    let startLevelBtn = document.querySelector("#startLevelBtn");
+    startLevelBtn.disabled = true;
+    startLevelBtn.style.setProperty("background-color","#gray");
+}
+
+function enableStartLevelBtn() {
+    
+    let startLevelBtn = document.querySelector("#startLevelBtn");
+    startLevelBtn.disabled = false;
+    startLevelBtn.style.setProperty("background-color","#007bff");
+}
+
+function startLevel() {
+    // start level
+    console.log("Start Level!");
+    let count = 1;
+    toggleClickOn();
+
+
+    disableStartLevelBtn();
+    clearCellSequence();
     makeSequence(count);
     pulseSequence();
+    
+    getRandomSequence();
+    getCellSequence();
+}
+
+function toggleClickOn() {
+    console.log("Click Set On!");
+    localStorage.setItem("isClickOn","true");
+}
+
+function toggleClickOff() {
+    console.log("Click Set Off!");
+    localStorage.setItem("isClickOn","false");
+}
+
+function getRandomSequence() {
+    let randomSeqStr = localStorage.getItem("randomSequence");
+    let randomSequence = JSON.parse(randomSeqStr);
+    console.log("Random Sequence: " + randomSequence)
+    return randomSequence;
+}
+
+function getCellSequence() {
+    let cellSeqStr = localStorage.getItem("cellSequence");
+    let cellSequence = JSON.parse(cellSeqStr);
+    console.log("Cell Sequence: " + cellSequence)
+    return cellSequence;
+}
+
+function clearCellSequence() {
+    let cellSequence = [];
+    let cellSeqStr = JSON.stringify(cellSequence);
+    localStorage.setItem("cellSequence",cellSeqStr);
+}
+
+function isEqualSequence() {
+    console.log("Equal Sequence?");
+    let isEqual = 1;
+    let randomSequence = getRandomSequence();
+    let cellSequence = getCellSequence();
+    let randomSize = randomSequence.length;
+    let cellSize = cellSequence.length;
+    if (randomSize != cellSize) {
+        isEqual = 0;
+    } else {
+        for (let index = 0; index < cellSize; index++) {
+            let randomCell = randomSequence[index];
+            let sequenceCell = cellSequence[index];
+            if (randomCell != sequenceCell) {
+                isEqual = 0;
+            }
+        }
+    }
+    return isEqual;
 }
 
 /*

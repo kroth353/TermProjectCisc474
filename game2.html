@@ -19,20 +19,13 @@
                     <div id="game2Grid" class="gameGrid">
 
                     </div>
-                    <button id="startGame" onclick="memoryGame()">Start Game</button>
+                    <button id="startGameBtn" onclick="memoryGame()">Start Game</button>
+                    <button id="startLevelBtn" onclick="startLevel()" disabled>Start Level</button>
                     <a href="index.html">Home</a>
                     <a href="game2settings.html">Game 2 Settings</a>
                     <p id="gameValues">Values: 2 easy #1c87c9</p>
                     <script>
                         setValues();
-                        makeSequence(10);
-                        pulseSequence();
-                        //updateHTMLGameGrid();
-                        /*
-                        setTimeout(() => updateCell(0),0);
-                        setTimeout(() => updateCell(1),1000);
-                        setTimeout(() => updateCell(0),2000);
-                        */
                     </script>
                 </div>
             </div>
