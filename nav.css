@@ -132,12 +132,6 @@ body::-webkit-scrollbar {
   color: #007bff;
 }
 
-/*
-.userInfo {
-  color: #fff;
-}
-*/
-
 .dark .dark-toggle input {
   color: #ff0007;
 }
@@ -182,18 +176,3 @@ body::-webkit-scrollbar {
 .loginForm {
   border: none;
 }
-/*
-.userInfo {
-  background-color: rgba(255,255,255,0.25);
-  padding: 10px;
-  margin: 5px 0 5px 0;
-  border: none;
-  border-radius: 5px;
-  color: #000;
-  box-shadow: inset 0px 0px 5px rgba(0,0,0,0.5)
-}
-
-.userInfo::placeholder {
-  color: #000;
-}
-*/
