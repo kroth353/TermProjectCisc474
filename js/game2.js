@@ -146,7 +146,7 @@ function getValues() {
         localStorage.setItem("size",sizeValue);
         localStorage.setItem("difficulty",diffValue);
         localStorage.setItem("color",colorValue);
-        localStorage.setItem("pulse","#ffffff");
+        localStorage.setItem("pulse","#f4ede1");
         localStorage.setItem("keep",keepValue);
         localStorage.setItem("easy",1);
         localStorage.setItem("medium",0.5);
@@ -175,6 +175,7 @@ function getValues() {
 
 // Update Button to refresh actual game 2 settings on the page.
 function updateSetVals() {
+    //console.log("updateSetVals Location: " + location.href);
     // input elements
     let sizeInput = document.querySelector("#sizePick");
     let diffInput1 = document.querySelector("#diffPick1");
@@ -194,13 +195,14 @@ function updateSetVals() {
     let diffValue;
     let colorValue;
     let keepValue;
+    
     sizeValue = sizeInput.value;
-        if (diffInput1.checked) diffValue = diffInput1.value;
-        if (diffInput2.checked) diffValue = diffInput2.value;
-        if (diffInput3.checked) diffValue = diffInput3.value;
-        colorValue = colorInput.value;
-        if (keepInput1.checked) keepValue = keepInput1.value;
-        if (keepInput2.checked) keepValue = keepInput2.value;
+    if (diffInput1.checked) diffValue = diffInput1.value;
+    if (diffInput2.checked) diffValue = diffInput2.value;
+    if (diffInput3.checked) diffValue = diffInput3.value;
+    colorValue = colorInput.value;
+    if (keepInput1.checked) keepValue = keepInput1.value;
+    if (keepInput2.checked) keepValue = keepInput2.value;
     sizeOutput.innerHTML = sizeValue + " x " + sizeValue;
     colorOutput.innerHTML = colorValue;
     settingOutput.innerHTML = "Setting Values: " + sizeValue + " " + diffValue + " " + colorValue + " " + keepValue;
@@ -210,10 +212,13 @@ function updateSetVals() {
 
 // Updates the game grid when the screen is resized
 window.onresize = setValues;
+// Updates the values in settings when page loads
+window.onload = updateSetVals;
 
 // Sets the values from the game 2 settings onto the game 2 
 // page for the game grid and outputs
 function setValues() {
+    //console.log("setValues Location: " + JSON.stringify(location.href));
     //console.clear();
     // getting local variables
     let gridSize = localStorage.getItem("size");
@@ -241,8 +246,8 @@ function setValues() {
     console.log("Width: " + gridWidth);
     console.log("Height: " + gridHeight);
     console.log("cell size: " + cellSize);
-    // start level btn
-    disableStartLevelBtn();
+    //
+    enableStartLevelBtn();
     // HTML game grid
     let autos = "";
     for (let row = 0; row < gridSize; row++) {
@@ -292,6 +297,8 @@ function setValues() {
                 let isClickOn = localStorage.getItem("isClickOn");
                 if (isClickOn == "true") {
                     //console.log("Click Game Cell is On!");
+                    let pulseColor = localStorage.getItem("pulse");
+                    
                     seqArr.push(cellId);
                     // store cell id in cell sequence
                     sequenceStr = JSON.stringify(seqArr);
@@ -310,11 +317,12 @@ function setValues() {
                             highScoreOutput.innerHTML = "High Score: " + (count-1);
                         }
                         localStorage.setItem("pulseCount",count);
+                        updateCell(cellId,"#37FF00"); // green
                         enableStartLevelBtn();
-                        disableStartGameBtn();
                     } else if (isEqualSequence() == 1) {
                         console.log("Random and Cell are equal so far!");
-                        disableStartGameBtn();
+                        updateCell(cellId,pulseColor);
+                        disableStartLevelBtn();
                     } else if (isEqualSequence() == 0) {
                         console.log("Random and Cell are not equal!");
                         let count = localStorage.getItem("pulseCount");
@@ -322,9 +330,13 @@ function setValues() {
                         let scoreOutput = document.querySelector("#gameScore");
                         scoreOutput.innerHTML = "Score: " + (count-1);
                         localStorage.setItem("pulseCount",count);
-                        enableStartGameBtn();
+                        updateCell(cellId,"#FD0000"); // red
+                        enableStartLevelBtn();
                         toggleClickOff();
                     }
+                    let diffTime = localStorage.getItem("time");
+                    console.log("time difficulty: " + diffTime);
+                    setTimeout(() => updateCell(cellId,gridColor),1000*diffTime);
                     console.log("Cell Id: " + cellId);
                     console.log("Cell sequence: " + seqArr);
                 }
@@ -482,14 +494,6 @@ function enableStartLevelBtn() {
     let startLevelBtn = document.querySelector("#startLevelBtn");
     startLevelBtn.disabled = false;
     startLevelBtn.style.setProperty("background-color","#007bff");
-}
-
-// Enables the Start Level Button
-function memoryGame() {
-    // start game
-    console.log("Start Game!");
-    disableStartGameBtn();
-    enableStartLevelBtn();
 }
 
 // Actual function to call for the game 2 to start

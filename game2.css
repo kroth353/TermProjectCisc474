@@ -6,13 +6,27 @@ body {
     /* align-items: center; */
     height: 100vh; /* This ensures the container takes up the full viewport height */
     margin: 0; /* Remove default body margin */
-    background-color: #f0f0f0; /* Background color for the entire page */
+    background-color: #bf5a5d; /*white;*//*#f0f0f0; /* Background color for the entire page */
 }
 
-a,button {
+.directions-header {
+    /*position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, 0);*/
+    font-size: 5vh;
+    color: #bf5a5d;
+    font-family: "Andale Mono";
+}
+
+h1,h2,h3,p,span,label {
+    color: #f4ede1;
+}
+
+a,#gameValues,#settingValues {
     display: block;
-    background-color: #007bff;
-    color: white;
+    background-color: #bf5a5d;/*#007bff;*/
+    color: #f4ede1; /*white;*/
     text-decoration: none;
     padding: 10px;
     margin-top: 20px;
@@ -21,19 +35,38 @@ a,button {
     margin-right: auto;
     border: none;
     font: inherit;
+    border: solid 2px #f4ede1; /*white;*/
+    border-radius: 7px;
 }
 
-.leftcolumn {   
+button {
+    display: inline-block;
+    background-color: #bf5a5d;/*#007bff;*/
+    color: #f4ede1; /*white;*/
+    text-decoration: none;
+    padding: 10px;
+    margin-top: 20px;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+    font: inherit;
+    border: solid 2px #f4ede1; /*white;*/
+    border-radius: 7px;
+}
+
+.leftcolumn {
     float: left;
     width: 25%;
     /*padding-right: 20px;*/
 }
 
 .middlecolumn {
+    font-family: inherit;
     float: left;
     width: 50%;
     height: 100%;
-    background-color: #f1f1f1;
+    background-color: #bf5a5d;; /*#f1f1f1;*/
 }
 
 .rightcolumn {
@@ -43,13 +76,20 @@ a,button {
 }
 
 .box {
+    font-family: inherit;
+    float: center;
     text-align: center;
-    background-color: white;
-    padding: 20px;
+    background-color: #bf5a5d;/*white;*/
+    padding: auto;
     width: 100%;
+    max-width: 500px;
     height: 100%;
     margin-top: 20px;
     margin-bottom: 20px;
+    
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 
 .clearbox {
@@ -80,15 +120,24 @@ a,button {
     border: none;
 }
 
-/*
+
 .gameCell {
+    color: auto;/*#ffffff;*/
+    border-radius: 10px;
+    /*
     position: relative;
     margin: 0px;
     border: none;
     animation-name: pulse;
     --startColor: none;
     --pulseColor: none;
-} 
+    */
+}
+
+.gameCell:hover {
+    color: #f4ede1;
+}
+
 /*
 .easyPulse {
     animation-duration: 1s;
