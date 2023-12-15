@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="game2.css">
+        <script src="js/game2.js"></script>
+        <title>Game 2</title>
+    </head>
+    <body>
+        <div class="row">
+            <div class="leftcolumn">
+                <div class="clearbox"></div>
+            </div>
+            <div class="middlecolumn">
+                <div class="box">
+                    <h1>Copy Game</h1>
+                    <!-- Game 2 Grid -->
+                    <div id="game2Grid" class="gameGrid">
+
+                    </div>
+                    <button id="startGameBtn" onclick="memoryGame()">Start Game</button>
+                    <button id="startLevelBtn" onclick="startLevel()" disabled>Start Level</button>
+                    <button id="gameScore">Score: 0</button>
+                    <button id="highScore">High Score: 0</button>
+                    <a href="index.html">Home</a>
+                    <a href="game2settings.html">Game 2 Settings</a>
+                    <p id="gameValues">Values: 2 easy #1c87c9</p>
+                    <script>
+                        setValues();
+                    </script>
+                </div>
+            </div>
+            <div class="rightcolumn">
+                <div class="clearbox"></div>
+            </div>
+        </div>
+    </body>
+</html>

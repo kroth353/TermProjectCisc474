@@ -72,6 +72,7 @@ async function renderPage(page) {
             htmlStr += `<p class='home-footer'>Remember to log in to get your high score on the leaderboard!</p>`;
         }
     } else if (page == "game2settings") {
+        /*
         htmlStr += `
         <div class="row">
             <div class="leftcolumn">
@@ -130,7 +131,7 @@ async function renderPage(page) {
                 <button onclick="renderPage('game2')" class="option">Play</a> <br>
             </div>
         </nav>
-        `;
+        `;*/
     } else if (page == "game1") {
         htmlStr += `
         <div class='game-page-div'>
@@ -170,7 +171,36 @@ async function renderPage(page) {
             htmlStr += "</div>";
         }
     } else if (page == "game2") {
-        htmlStr += `
+        /*htmlStr += `
+        <div class="row">
+            <div class="leftcolumn">
+                <div class="clearbox"></div>
+            </div>
+            <div class="middlecolumn">
+                <div class="box">
+                    <h1>Copy Game</h1>
+                    <!-- Game 2 Grid -->
+                    <div id="game2Grid" class="gameGrid">
+
+                    </div>
+                    <button id="startGameBtn" onclick="memoryGame()">Start Game</button>
+                    <button id="startLevelBtn" onclick="startLevel()" disabled>Start Level</button>
+                    <button id="gameScore">Score: 0</button>
+                    <button id="highScore">High Score: 0</button>
+                    <a href="index.html">Home</a>
+                    <a href="game2settings.html">Game 2 Settings</a>
+                    <p id="gameValues">Values: 2 easy #1c87c9</p>
+                    <script>
+                        setValues();
+                    </script>
+                </div>
+            </div>
+            <div class="rightcolumn">
+                <div class="clearbox"></div>
+            </div>
+        </div>
+        `;*/
+        /*htmlStr += `
         <div class="heading">
             <header>
                 <h1 class="title">Game Library</h1>
@@ -185,7 +215,7 @@ async function renderPage(page) {
                 <a href = "game2settings.html" class="option">Game 2 Settings</a> <br>
             </div>
         </nav>
-        `;
+        `;*/
     } else if (page == "homesettings") {
         htmlStr += `
         <div id='card-dark-menu' class='item-card-login'>
@@ -224,7 +254,7 @@ async function renderPage(page) {
             <img class='back-face-menu' src='images/cardBack.svg'>
         </div>
         <div id='card-game2' class='item-card-menu' onclick="flipMenuCard('card-game2')">
-            <div class='front-face-menu' onclick="renderPage('game2settings')">
+            <div class='front-face-menu' onclick="location.href='game2settings.html'">
                 <img class='front-face-img-menu' src='images/menuCardFront.png'>
                 <p class="menu-card-text">Lights</p>
             </div>

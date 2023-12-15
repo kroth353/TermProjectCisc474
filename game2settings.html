@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" type="text/css" href="game2.css">
+        <script src="js/game2.js"></script>
+        <title>Game 2 Settings</title>
+    </head>
+    <body>
+        <div class="row">
+            <div class="leftcolumn">
+                <div class="clearbox"></div>
+            </div>
+            <div class="middlecolumn">
+                <div class="box">
+                    <h1>Copy Game Settings</h1>
+                    <!-- Size -->
+                    <h2>Grid Size</h2>
+                    <p> 
+                        Use the slider to select the size of grid. <br>
+                        The size will increase as you progress. 
+                    </p>
+                    <div class="slidecontainer">
+                        <h3>Size: <input type="range" min="2" max="5" value="2" class="slider" id="sizePick"> <span id="sizeOutput">2 x 2</span></h3>
+                    </div>
+                    <!-- Difficulty -->
+                    <h2>Difficulty Select</h2>
+                    <p>
+                        Select a difficulty for the game. <br>
+                        This determines the duration of cell flashes.<br>
+                        The duration decreases with difficulty.
+                    </p>
+                    <div class="container">
+                        <input type="radio" id="diffPick1" name="difficulty" value="easy" checked><span>Easy 1s</span>
+                        <input type="radio" id="diffPick2" name="difficulty" value="medium"><span>Medium 0.5s</span>
+                        <input type="radio" id="diffPick3" name="difficulty" value="hard"><span>Hard 0.25s</span>
+                    </div>
+                    <!-- Color -->
+                    <h2>Color Select</h2>
+                    <p>
+                        Pick a color below. <br>
+                        The color is what the cells will flash to when they <br>
+                        light up during the game, then flash back to white.
+                    </p>
+                    <input type="color" id="colorPick" name="colorPick" value="#1c87c9">
+                    <label id="colorValue">#1c87c9</label>
+                    <!-- Keep -->
+                    <h2>Keep Select</h2>
+                    <p>
+                        Select whether to keep the settings.<br>
+                        If you go back to the settings page, values will be kept.
+                    </p>
+                    <div class="container">
+                        <input type="radio" id="keepPick1" name="keep" value="false" checked><span>Not Keep</span>
+                        <input type="radio" id="keepPick2" name="keep" value="true" ><span>Keep</span>
+                    </div>
+                    <button onclick="updateSetVals()">Update Values</button>
+                    <h2>Directions</h2>
+                    <p>
+                        Once you click "Play": <br>
+                        Click "Start Game", then "Start Level"<br>
+                        A series of cells will pulse on the grid<br>
+                        After the pulses, click on the cells in the correct order<br>
+                        If you click on the correct cells: <br>
+                        Click "Start Level" for the next level<br>
+                        A longer series of cells will pulse as you progress<br>
+                        If you click on the wrong cell: <br>
+                        It is Game Over<br>
+                        Start Game will light up and click to play again<br>
+                    </p>
+                    <p>
+                        Click "Play" to begin, or "Home" to return<br>
+                    </p>
+                    <div class="center">
+                        <a href="game2.html">Play</a>
+                        <a href="index.html">Home</a>
+                    </div>
+                    <!-- Script to get values -->
+                    <p id="settingValues">Values: 2 easy #1c87c9</p>
+                    <script>
+                        setInputElements();
+                        getValues();
+                    </script>
+                </div>
+            </div>
+            <div class="rightcolumn">
+                <div class="clearbox"></div>
+            </div>
+        </div>
+    </body>
+</html>
