@@ -17,11 +17,13 @@
         </div>
         <div class="content">
             <div class="black-box">
+                <!--Creation of button events-->
                 <div class="tabs">
                     <button class="tabLinks" onClick="openPrompt(event, 'loginForm')" id="default">Log In</button>
                     <button class="tabLinks" onClick="openPrompt(event, 'signupForm')">Sign Up</button>
                 </div>
     
+                <!--login form -->
                 <div id="loginForm" class="userTab">
                     <h1>Log In</h1>
                     <form name="loginForm" onsubmit="return false;">
@@ -35,6 +37,7 @@
                     <button class="option" onClick="login()">Log in</button>
                 </div>
     
+                <!--Sign up form-->
                 <div id="signupForm" class="userTab">
                     <h1>Sign Up</h1>
                     <form name="signupForm" onsubmit="return false;">
